@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>深度学习入门学习笔记 | Kisugi Takumi</title><meta name="keywords" content="深度学习,机器学习,Python"><meta name="author" content="Kisugi Takumi,zenghongyi1@google.com"><meta name="copyright" content="Kisugi Takumi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深度学习是学习样本数据的内在规律和表示层次，这些学习过程中获得的信息对诸如文字，图像和声音等数据的解释有很大的帮助。它的最终目标是让机器能够像人一样具有分析学习能力，能够识别文字、图像和声音等数据。 深度学习是一个复杂的机器学习算法，在语音和图像识别方面取得的效果，远远超过先前相关技术。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习入门学习笔记">
+<meta property="og:url" content="https://kisugitakumi.github.io/2021/12/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Kisugi Takumi">
+<meta property="og:description" content="深度学习是学习样本数据的内在规律和表示层次，这些学习过程中获得的信息对诸如文字，图像和声音等数据的解释有很大的帮助。它的最终目标是让机器能够像人一样具有分析学习能力，能够识别文字、图像和声音等数据。 深度学习是一个复杂的机器学习算法，在语音和图像识别方面取得的效果，远远超过先前相关技术。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisugitakumi.github.io/img/deeplearning.png">
+<meta property="article:published_time" content="2021-12-23T03:46:25.000Z">
+<meta property="article:modified_time" content="2022-01-19T18:16:47.905Z">
+<meta property="article:author" content="Kisugi Takumi">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisugitakumi.github.io/img/deeplearning.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://kisugitakumi.github.io/2021/12/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Kisugi Takumi","link":"链接: ","source":"来源: Kisugi Takumi","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度学习入门学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-20 02:16:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 我的豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fab fa-steam-square"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/create/"><i class="fa-fw fas fa-user-edit"></i><span> 我的创作</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-kiss-wink-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Kisugi Takumi</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 我的豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fab fa-steam-square"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/create/"><i class="fa-fw fas fa-user-edit"></i><span> 我的创作</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-kiss-wink-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">深度学习入门学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-23T03:46:25.000Z" title="发表于 2021-12-23 11:46:25">2021-12-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-19T18:16:47.905Z" title="更新于 2022-01-20 02:16:47">2022-01-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深度学习入门学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="深度学习入门学习笔记"><a href="#深度学习入门学习笔记" class="headerlink" title="深度学习入门学习笔记"></a>深度学习入门学习笔记</h1><p>学习来源：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/30270959/">《深度学习入门——基于Python的理论与实现》</a> 学习时间：2021年12月23日</p>
+<p>记录得比较杂，主要是一些额外补充的知识。</p>
+<h2 id="1-感知机"><a href="#1-感知机" class="headerlink" title="1 感知机"></a>1 感知机</h2><h3 id="1-1-感知机是什么"><a href="#1-1-感知机是什么" class="headerlink" title="1.1 感知机是什么"></a>1.1 感知机是什么</h3><p>感知机（perceptron）是由美国学者Frank Rosenblatt在1957年提出来的。感知机也是作为神经网络（深度学习）的起源的算法。</p>
+<p>下图是一个接收两个输入信号的感知机的例子。<em>x</em>1、<em>x</em>2是输入信号，<em>y</em>是输出信号，<em>w</em>1、<em>w</em>2是<strong>权重</strong>（<em>w</em>是weight的首字母）。图中的○称为“神经元”或者“节点”。输入信号被送往神经元时，会被分别乘以固定的权重（<em>w</em>1<em>x</em>1、<em>w</em>2<em>x</em>2）。神经元会计算传送过来的信号的总和，只有当这个总和超过了某个界限值时，才会输出1。这也称为“神经元被激活”。这里将这个界限值称为<strong>阈值</strong>，用符号<em>θ</em>表示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105232728152.png" alt="image-20220105232728152"></p>
+<p>数学表达为：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105232857434.png" alt="image-20220105232857434"></p>
+<p>将<em>θ</em>换成<em>-b</em>，则有：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105233110956.png" alt="image-20220105233110956"></p>
+<p>此处，<em>b</em>称为<strong>偏置（biase）</strong>，<em>w</em>1和<em>w</em>2称为权重。</p>
+<h3 id="1-2-多层感知机"><a href="#1-2-多层感知机" class="headerlink" title="1.2 多层感知机"></a>1.2 多层感知机</h3><ul>
+<li>感知机的局限：感知机的局限性就在于它只能表示由一条直线分割的线性空间。而对于非线性空间则无能为力。例如单个感知机不能实现<strong>异或门</strong>的功能。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105233422475.png" alt="image-20220105233422475"></p>
+<p>上图中的感知机总共由3层构成，但是因为拥有权重的层实质上只有2层（第0层和第1层之间，第1层和第2层之间），所以称为“2层感知机”。不过，有的文献认为上图的感知机是由3层构成的，因而将其称为“3层感知机”。</p>
+<h3 id="1-3-小结"><a href="#1-3-小结" class="headerlink" title="1.3 小结"></a>1.3 小结</h3><ul>
+<li><p>感知机是具有输入和输出的算法。给定一个输入后，将输出一个既定的值。</p>
+</li>
+<li><p>感知机将权重和偏置设定为参数。</p>
+</li>
+<li><p>使用感知机可以表示与门和或门等逻辑电路。</p>
+</li>
+<li><p>异或门无法通过单层感知机来表示。</p>
+</li>
+<li><p>使用2层感知机可以表示异或门。</p>
+</li>
+<li><p>单层感知机只能表示线性空间，而多层感知机可以表示非线性空间。</p>
+</li>
+<li><p>多层感知机（在理论上）可以表示计算机</p>
+</li>
+</ul>
+<h2 id="2-神经网络"><a href="#2-神经网络" class="headerlink" title="2 神经网络"></a>2 神经网络</h2><p>具体地讲，神经网络的一个重要性质是它可以自动地从数据中学习到合适的权重参数。</p>
+<h3 id="2-1-从感知机到神经网络"><a href="#2-1-从感知机到神经网络" class="headerlink" title="2.1 从感知机到神经网络"></a>2.1 从感知机到神经网络</h3><h4 id="2-1-1-神经网络的例子"><a href="#2-1-1-神经网络的例子" class="headerlink" title="2.1.1 神经网络的例子"></a>2.1.1 神经网络的例子</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105233701957.png" alt="image-20220105233701957"></p>
+<p>用图来表示神经网络的话，如上图所示。我们把最左边的一列称为<strong>输入层</strong>，最右边的一列称为<strong>输出层</strong>，中间的一列称为<strong>中间层</strong>。中间层有时也称为<strong>隐藏层</strong>。“隐藏”一词的意思是，隐藏层的神经元（和输入层、输出层不同）肉眼看不见。另外，本书中把输入层到输出层依次称为第0层、第1层、第2层（层号之所以从0开始，是为了方便后面基于Python进行实现）。图3-1中，第0层对应输入层，第1层对应中间层，第2层对应输出层。</p>
+<p>顺便提一下，在上图的网络中，偏置<em>b</em>并没有被画出来。如果要明确地表示出<em>b</em>，可以像下图那样做：添加了权重为<em>b</em>的输入信号1。这个感知机将<em>x</em>1、<em>x</em>2、1三个信号作为神经元的输入，将其和各自的权重相乘后，传送至下一个神经元。在下一个神经元中，计算这些加权信号的总和。如果这个总和超过0，则输出1，否则输出0。另外，由于偏置的输入信号一直是1，所以为了区别于其他神经元，我们在图中把这个神经元整个涂成灰色。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105233956655.png" alt="image-20220105233956655"></p>
+<p>现在回过头来看一下感知机的数学表达式：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234025255.png" alt="image-20220105234025255"></p>
+<p>现在将式（3.1）改写成更加简洁的形式。为了简化式（3.1），用一个函数来表示这种分情况的动作（超过0则输出1，否则输出0）。引入新函数<em>h</em>(<em>x</em>)，将式（3<em>.</em>1）改写成下面的式（3<em>.</em>2）和式（3<em>.</em>3）。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234139450.png" alt="image-20220105234139450"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234148436.png" alt="image-20220105234148436"></p>
+<h4 id="2-1-2-激活函数引入"><a href="#2-1-2-激活函数引入" class="headerlink" title="2.1.2 激活函数引入"></a>2.1.2 激活函数引入</h4><p>刚才登场的<em>h</em>（<em>x</em>）函数会将输入信号的总和转换为输出信号，这种函数一般称为<strong>激活函数</strong>（activation function）。如“激活”一词所示，激活函数的作用在于决定如何来激活输入信号的总和。</p>
+<p>现在来进一步改写式（3<em>.</em>2）。式（3<em>.</em>2）分两个阶段进行处理，先计算输入信号的加权总和，然后用激活函数转换这一总和。因此，如果将式（3<em>.</em>2）写得详细一点，则可以分成下面两个式子。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234430626.png" alt="image-20220105234430626"></p>
+<p>首先，式（3<em>.</em>4）计算加权输入信号和偏置的总和，记为<em>a</em>。然后，式（3<em>.</em>5） 用<em>h</em>()函数将<em>a</em>转换为输出<em>y</em>。</p>
+<p>之前的神经元都是用一个○表示的，如果要在图中明确表示出式（3<em>.</em>4）和式（3<em>.</em>5），则可以像图3-4这样做。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234532058.png" alt="image-20220105234532058"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234550334.png" alt="image-20220105234550334"></p>
+<p>激活函数是<strong>连接感知机和神经网络的桥梁</strong>。</p>
+<h3 id="2-2-激活函数"><a href="#2-2-激活函数" class="headerlink" title="2.2 激活函数"></a>2.2 激活函数</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234717493.png" alt="image-20220105234717493"></p>
+<p>式（3<em>.</em>3）表示的激活函数以阈值为界，一旦输入超过阈值，就切换输出。这样的函数称为“<strong>阶跃函数</strong>”。因此，可以说感知机中使用了阶跃函数作为激活函数。也就是说，在激活函数的众多候选函数中，感知机使用了阶跃函数。</p>
+<p>如图3-6所示，阶跃函数以0为界，输出从0切换为1（或者从1切换为0）。它的值呈阶梯式变化，所以称为阶跃函数。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234858700.png" alt="image-20220105234858700"  /></p>
+<h4 id="2-2-1-sigmoid函数"><a href="#2-2-1-sigmoid函数" class="headerlink" title="2.2.1 sigmoid函数"></a>2.2.1 sigmoid函数</h4><p>神经网络中经常使用的一个激活函数就是式（3<em>.</em>6）表示的<strong>sigmoid函数</strong>（sigmoid function）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105234751990.png" alt="image-20220105234751990"></p>
+<h4 id="2-2-2-sigmoid函数实现"><a href="#2-2-2-sigmoid函数实现" class="headerlink" title="2.2.2 sigmoid函数实现"></a>2.2.2 sigmoid函数实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105235052058.png" alt="image-20220105235052058"></p>
+<h4 id="2-2-3-非线性函数"><a href="#2-2-3-非线性函数" class="headerlink" title="2.2.3 非线性函数"></a>2.2.3 非线性函数</h4><p>阶跃函数和sigmoid函数还有其他共同点，就是两者均为非线性函数。sigmoid函数是一条曲线，阶跃函数是一条像阶梯一样的折线，两者都属于<strong>非线性的函数</strong>。</p>
+<p>神经网络的激活函数必须使用非线性函数。换句话说，激活函数不能使用线性函数。</p>
+<h4 id="2-2-4-ReLU函数"><a href="#2-2-4-ReLU函数" class="headerlink" title="2.2.4 ReLU函数"></a>2.2.4 ReLU函数</h4><p>在神经网络发展的历史上，sigmoid函数很早就开始被使用了，而最近则主要使用<strong>ReLU</strong>（<strong>Rectified Linear Unit</strong>）函数</p>
+<p>ReLU函数可以表示为下面的式(3<em>.</em>7)。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105235245185.png" alt="image-20220105235245185"></p>
+<blockquote>
+<p>实现</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> np.maximum(<span class="number">0</span>, x)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105235312524.png" alt="image-20220105235312524"></p>
+<h4 id="2-2-5-激活函数知识点补充"><a href="#2-2-5-激活函数知识点补充" class="headerlink" title="2.2.5 激活函数知识点补充"></a>2.2.5 激活函数知识点补充</h4><h5 id="1）-概述"><a href="#1）-概述" class="headerlink" title="1） 概述"></a>1） 概述</h5><ol>
+<li><strong>神经网络为什么需要激活函数：</strong>首先数据的分布绝大多数是非线性的，而一般神经网络的计算是线性的，引入激活函数，是在神经网络中引入非线性，强化网络的学习能力。所以激活函数的最大特点就是非线性。</li>
+<li><strong>不同的激活函数，根据其特点，应用也不同。</strong>Sigmoid和tanh的特点是将输出限制在(0,1)和(-1,1)之间，说明Sigmoid和tanh<strong>适合做概率值</strong>的处理，例如LSTM中的各种门；而ReLU就不行，因为<strong>ReLU无最大值限制</strong>，可能会出现很大值。同样，根据ReLU的特征，Relu适合用于深层网络的训练，而Sigmoid和tanh则不行，因为它们会出现梯度消失。</li>
+</ol>
+<h5 id="2）-sigmoid"><a href="#2）-sigmoid" class="headerlink" title="2） $sigmoid$"></a>2） $sigmoid$</h5><p>sigmoid函数也称为Logistic函数，因为sigmoid函数可以从Logistic回归（LR）中推理得到，也是LR模型指定的激活函数。</p>
+<p>sigmod函数的取值范围在（0, 1）之间，可以将网络的输出映射在这一范围，方便分析。</p>
+<p><strong>Sigmoid作为激活函数的特点：</strong></p>
+<p>优点：平滑、易于求导。</p>
+<p>缺点：</p>
+<ol>
+<li>激活函数计算量大（在正向传播和反向传播中都包含幂运算和除法）；</li>
+<li>反向传播求误差梯度时，求导涉及除法；</li>
+<li>Sigmoid导数取值范围是[0, 0.25]，由于神经网络反向传播时的“链式反应”，很容易就会<strong>出现梯度消失</strong>的情况。例如对于一个10层的网络， 根据$0.25^{10} \cong 0.000000954 $，第10层的误差相对第一层卷积的参数$W_1$的梯度将是一个非常小的值，这就是所谓的“梯度消失”。</li>
+<li>Sigmoid的输出不是0均值（即zero-centered）；这会导致后一层的神经元将得到上一层输出的非0均值的信号作为输入，随着网络的加深，<strong>会改变数据的原始分布</strong>。</li>
+</ol>
+<h5 id="3）-tanh"><a href="#3）-tanh" class="headerlink" title="3） $tanh$"></a>3） $tanh$</h5><p>tanh为双曲正切函数，其英文读作Hyperbolic Tangent。tanh和 sigmoid 相似，都属于饱和激活函数，区别在于<strong>输出值范围由 (0,1) 变为了 (-1,1)</strong>，可以把 tanh 函数看做是 sigmoid 向下平移和拉伸后的结果。</p>
+<p><strong>tanh公式：</strong></p>
+<script type="math/tex; mode=display">
+tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}\tag{1}</script><script type="math/tex; mode=display">
+tanh(x)=\frac{2}{1+e^{-2x}}-1\tag{2}</script><p>从公式2中，可以更加清晰看出tanh与sigmoid函数的关系（平移+拉伸）。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106210427338.png" alt="image-20220106210427338"></p>
+<p><strong>tanh作为激活函数的特点：</strong></p>
+<p>相比Sigmoid函数，</p>
+<ol>
+<li>tanh的输出范围时(-1, 1)，解决了Sigmoid函数的不是zero-centered输出问题；</li>
+<li>幂运算的问题仍然存在；</li>
+<li>tanh导数范围在(0, 1)之间，相比sigmoid的(0, 0.25)，<strong>梯度消失（gradient vanishing）问题会得到缓解</strong>，但仍然还会存在。</li>
+</ol>
+<h5 id="4）-ReLU"><a href="#4）-ReLU" class="headerlink" title="4） $ReLU$"></a>4） $ReLU$</h5><p>Relu(Rectified Linear Unit)——修正线性单元函数：该函数形式比较简单，</p>
+<p>公式：$relu=max(0, x)$</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106210530071.png" alt="image-20220106210530071"></p>
+<p>从上图可知，ReLU的有效导数是常数1，解决了深层网络中出现的梯度消失问题，也就使得深层网络可训练。<strong>同时ReLU又是非线性函数，所谓非线性，就是一阶导数不为常数；对ReLU求导，在输入值分别为正和为负的情况下，导数是不同的，即ReLU的导数不是常数，所以ReLU是非线性的（只是不同于Sigmoid和tanh，relu的非线性不是光滑的）。</strong></p>
+<p><strong>ReLU在x&gt;0下，导数为常数1的特点：</strong></p>
+<p>导数为常数1的好处就是在“链式反应”中不会出现梯度消失，但梯度下降的强度就完全取决于权值的乘积，这样就可能会出现<strong>梯度爆炸</strong>问题。解决这类问题：一是控制权值，让它们在（0，1）范围内；二是做梯度裁剪，控制梯度下降强度，如$ReLU(x)=min(6, max(0,x))$</p>
+<p><strong>ReLU在x&lt;0下，输出置为0的特点：</strong></p>
+<p>描述该特征前，需要明确深度学习的目标：深度学习是根据大批量样本数据，从错综复杂的数据关系中，找到关键信息（关键特征）。换句话说，就是把密集矩阵转化为稀疏矩阵，保留数据的关键信息，去除噪音，这样的模型就有了鲁棒性。ReLU将x&lt;0的输出置为0，就是一个去噪音，稀疏矩阵的过程。而且在训练过程中，这种稀疏性是动态调节的，网络会自动调整稀疏比例，保证矩阵有最优的有效特征。</p>
+<p>但是ReLU 强制将x&lt;0部分的输出置为0（置为0就是屏蔽该特征），可能会导致模型无法学习到有效特征，所以如果学习率设置的太大，就可能会导致网络的大部分神经元处于<strong>‘dead’状态</strong>，所以使用ReLU的网络，<strong>学习率不能设置太大</strong>。</p>
+<p><strong>ReLU作为激活函数的特点：</strong></p>
+<ul>
+<li>相比Sigmoid和tanh，ReLU摒弃了复杂的计算，提高了运算速度。</li>
+<li>解决了梯度消失问题，收敛速度快于Sigmoid和tanh函数，但要防范ReLU的梯度爆炸</li>
+<li>容易得到更好的模型，但也要防止训练中出现模型‘Dead’情况。</li>
+</ul>
+<h5 id="5）-Leaky-ReLU-PReLU（Parametric-Relu）-RReLU（Random-ReLU）"><a href="#5）-Leaky-ReLU-PReLU（Parametric-Relu）-RReLU（Random-ReLU）" class="headerlink" title="5） Leaky ReLU, PReLU（Parametric Relu）, RReLU（Random ReLU）"></a>5） Leaky ReLU, PReLU（Parametric Relu）, RReLU（Random ReLU）</h5><p>为了防止模型的‘Dead’情况，后人将x&lt;0部分并没有直接置为0，而是给了一个很小的负数梯度值$\alpha$</p>
+<p><strong>Leaky ReLU</strong>中的$\alpha$为常数，一般设置 0.01。这个函数通常比 Relu 激活函数效果要好，但是效果不是很稳定，所以在实际中 Leaky ReLu 使用的并不多。</p>
+<p><strong>PRelu（参数化修正线性单元）</strong> 中的$\alpha$作为一个可学习的参数，会在训练的过程中进行更新。</p>
+<p><strong>RReLU（随机纠正线性单元）</strong>也是Leaky ReLU的一个变体。在RReLU中，负值的斜率在训练中是随机的，在之后的测试中就变成了固定的了。RReLU的亮点在于，在训练环节中，aji是从一个均匀的分布U(I,u)中随机抽取的数值。</p>
+<h3 id="2-3-一个三层神经网络的实现"><a href="#2-3-一个三层神经网络的实现" class="headerlink" title="2.3 一个三层神经网络的实现"></a>2.3 一个三层神经网络的实现</h3><p>这里我们以图3-15的3层神经网络为对象，实现从输入到输出的（前向）处理。在代码实现方面，使用上一节介绍的NumPy多维数组。巧妙地使用NumPy数组，可以用很少的代码完成神经网络的前向处理。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220105235608115.png" alt="image-20220105235608115"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化网络的参数，实际中这是由神经网络来自己学习的</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_network</span>():</span></span><br><span class="line">	network = &#123;&#125;</span><br><span class="line">	network[<span class="string">&#x27;W1&#x27;</span>] = np.array([[<span class="number">0.1</span>, <span class="number">0.3</span>, <span class="number">0.5</span>], [<span class="number">0.2</span>, <span class="number">0.4</span>, <span class="number">0.6</span>]])</span><br><span class="line">	network[<span class="string">&#x27;b1&#x27;</span>] = np.array([<span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.3</span>])</span><br><span class="line">	network[<span class="string">&#x27;W2&#x27;</span>] = np.array([[<span class="number">0.1</span>, <span class="number">0.4</span>], [<span class="number">0.2</span>, <span class="number">0.5</span>], [<span class="number">0.3</span>, <span class="number">0.6</span>]])</span><br><span class="line">	network[<span class="string">&#x27;b2&#x27;</span>] = np.array([<span class="number">0.1</span>, <span class="number">0.2</span>])</span><br><span class="line">	network[<span class="string">&#x27;W3&#x27;</span>] = np.array([[<span class="number">0.1</span>, <span class="number">0.3</span>], [<span class="number">0.2</span>, <span class="number">0.4</span>]])</span><br><span class="line">	network[<span class="string">&#x27;b3&#x27;</span>] = np.array([<span class="number">0.1</span>, <span class="number">0.2</span>])</span><br><span class="line">	<span class="keyword">return</span> network</span><br><span class="line"></span><br><span class="line"><span class="comment"># 前向传播</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">network, x</span>):</span></span><br><span class="line">	W1, W2, W3 = network[<span class="string">&#x27;W1&#x27;</span>], network[<span class="string">&#x27;W2&#x27;</span>], network[<span class="string">&#x27;W3&#x27;</span>]</span><br><span class="line">	b1, b2, b3 = network[<span class="string">&#x27;b1&#x27;</span>], network[<span class="string">&#x27;b2&#x27;</span>], network[<span class="string">&#x27;b3&#x27;</span>]</span><br><span class="line">	a1 = np.dot(x, W1) + b1 <span class="comment"># 矩阵内积并加上偏置</span></span><br><span class="line">	z1 = sigmoid(a1) <span class="comment"># 激活函数</span></span><br><span class="line">	a2 = np.dot(z1, W2) + b2 <span class="comment"># 矩阵内积并加上偏置</span></span><br><span class="line">	z2 = sigmoid(a2) <span class="comment"># 激活函数</span></span><br><span class="line">	a3 = np.dot(z2, W3) + b3 <span class="comment"># 矩阵内积并加上偏置</span></span><br><span class="line">	y = identity_function(a3) <span class="comment"># 恒等函数</span></span><br><span class="line">	<span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line">network = init_network()</span><br><span class="line"><span class="comment"># 输入</span></span><br><span class="line">x = np.array([<span class="number">1.0</span>, <span class="number">0.5</span>])</span><br><span class="line">y = forward(network, x)</span><br><span class="line"><span class="built_in">print</span>(y) <span class="comment"># [ 0.31682708 0.69627909]</span></span><br></pre></td></tr></table></figure>
+<p>这里定义了identity_function()函数（也称为“<strong>恒等函数</strong>”），并将其作为输出层的激活函数。恒等函数会将输入按原样输出，因此，这个例子中没有必要特意定义identity_function()。这里这样实现只是为了和之前的流程保持统一。另外，图3-20中，<strong>输出层的激活函数用<em>σ</em>()</strong>表示，不同于隐藏层的激活函数<em>h</em>()（<em>σ</em>读作sigma）。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106000103000.png" alt="image-20220106000103000"></p>
+<p>输出层所用的激活函数，要根据求解问题的性质决定。一般地：</p>
+<ul>
+<li>回归问题可以使用恒等函数</li>
+<li>二元分类问题可以使用 sigmoid函数</li>
+<li>多元分类问题可以使用 softmax函数。</li>
+</ul>
+<h3 id="2-4-输出层的实现"><a href="#2-4-输出层的实现" class="headerlink" title="2.4 输出层的实现"></a>2.4 输出层的实现</h3><p>神经网络可以用在分类问题和回归问题上，不过需要根据情况改变输出层的激活函数。一般而言，回归问题用恒等函数，分类问题用softmax函数。</p>
+<h4 id="2-4-1-恒等函数和softmax函数"><a href="#2-4-1-恒等函数和softmax函数" class="headerlink" title="2.4.1 恒等函数和softmax函数"></a>2.4.1 恒等函数和softmax函数</h4><p>恒等函数会将输入按原样输出，对于输入的信息，不加以任何改动地直接输出。因此，在输出层使用恒等函数时，输入信号会原封不动地被输出。另外，将恒等函数的处理过程用之前的神经网络图来表示的话，则如图3-21所示。和前面介绍的隐藏层的激活函数一样，恒等函数进行的转换处理可以用一根箭头来表示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106000322029.png" alt="image-20220106000322029"></p>
+<p>分类问题中使用的softmax函数可以用下面的式（3<em>.</em>10）表示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106000341879.png" alt="image-20220106000341879"></p>
+<p>softmax函数的分子是输入信号ak的指数函数，分母是所有输入信号的指数函数的和。</p>
+<p>用图表示softmax函数的话，如图3-22所示。图3-22中，softmax函数的输出通过箭头与所有的输入信号相连。这是因为，从式（3<em>.</em>10）可以看出，<strong>输出层的各个神经元都受到所有输入信号的影响</strong>。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106000447475.png" alt="image-20220106000447475"></p>
+<blockquote>
+<p>softmax函数实现</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span>(<span class="params">a</span>):</span></span><br><span class="line">	exp_a = np.exp(a)</span><br><span class="line">	sum_exp_a = np.<span class="built_in">sum</span>(exp_a)</span><br><span class="line">	y = exp_a / sum_exp_a</span><br><span class="line">	<span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<p>为防止溢出问题，改进后的softmax函数实现为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span>(<span class="params">a</span>):</span></span><br><span class="line">	c = np.<span class="built_in">max</span>(a)</span><br><span class="line">	exp_a = np.exp(a - c) <span class="comment"># 溢出对策</span></span><br><span class="line">	sum_exp_a = np.<span class="built_in">sum</span>(exp_a)</span><br><span class="line">	y = exp_a / sum_exp_a</span><br><span class="line">	<span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-2-softmax函数的特征"><a href="#2-4-2-softmax函数的特征" class="headerlink" title="2.4.2 softmax函数的特征"></a>2.4.2 softmax函数的特征</h4><p>softmax函数的输出是0<em>.</em>0到1<em>.</em>0之间的实数。并且，softmax函数的输出值的总和是1。输出总和为1是softmax函数的一个重要性质。正因为有了这个性质，我们<strong>才可以把softmax函数的输出解释为“概率”</strong>。</p>
+<p>一般而言，神经网络只把输出值最大的神经元所对应的类别作为识别结果。并且，即便使用softmax函数，输出值最大的神经元的位置也不会变。因此，神经网络在进行分类时，输出层的softmax函数<strong>可以省略</strong>。在实际的问题中，由于指数函数的运算需要一定的计算机运算量，因此输出层的softmax函数一般会被省略。</p>
+<p><strong>注意</strong>：求解机器学习问题的步骤可以分为<strong>“学习（训练）” 和“推理（预测）”</strong>两个阶段。首先，在学习阶段进行模型的学习，然后，在推理阶段，用学到的模型对未知的数据进行推理（分类）。如前所述，推理阶段一般会省略输出层的 softmax函数。在输出层使用 softmax函数是因为它和神经网络的<strong>学习</strong>有关系。</p>
+<h4 id="2-4-3-输出层的神经元数量"><a href="#2-4-3-输出层的神经元数量" class="headerlink" title="2.4.3 输出层的神经元数量"></a>2.4.3 输出层的神经元数量</h4><p>输出层的神经元数量需要根据待解决的问题来决定。对于分类问题，输出层的神经元数量一般设定为类别的数量。比如，对于某个输入图像，预测是图中的数字0到9中的哪一个的问题（10类别分类问题），可以像图3-23这样，将输出层的神经元设定为10个。</p>
+<p>如图3-23所示，在这个例子中，输出层的神经元从上往下依次对应数字0<em>,</em> 1<em>, …,</em> 9。此外，图中输出层的神经元的值用不同的灰度表示。这个例子中神经元<em>y</em>2颜色最深，输出的值最大。这表明这个神经网络预测的是<em>y</em>2对应的类别，也就是“2”。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106000906412.png" alt="image-20220106000906412"></p>
+<h3 id="2-5-手写数字识别"><a href="#2-5-手写数字识别" class="headerlink" title="2.5 手写数字识别"></a>2.5 手写数字识别</h3><p>这里我们来进行手写数字图像的分类。假设学习已经全部结束，我们使用学习到的参数，先实现神经网络的“推理处理”。这个推理处理也称为<strong>神经网络的前向传播</strong>（forward propagation）。</p>
+<h4 id="2-5-1-MNIST数据集"><a href="#2-5-1-MNIST数据集" class="headerlink" title="2.5.1 MNIST数据集"></a>2.5.1 MNIST数据集</h4><p>训练图像有6万张，测试图像有1万张。MNIST的图像数据是28像素 × 28像素的灰度图像（1通道），各个像素的取值在0到255之间。每个图像数据都相应地标有“7”“2”“1”等标签。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys, os</span><br><span class="line">sys.path.append(os.pardir) <span class="comment"># 为了导入父目录中的文件而进行的设定</span></span><br><span class="line"><span class="keyword">from</span> dataset.mnist <span class="keyword">import</span> load_mnist <span class="comment"># 第一次调用会花费几分钟 ……</span></span><br><span class="line">(x_train, t_train), (x_test, t_test) = load_mnist(flatten=<span class="literal">True</span>, normalize=<span class="literal">False</span>)</span><br><span class="line"><span class="comment"># 输出各个数据的形状</span></span><br><span class="line"><span class="built_in">print</span>(x_train.shape) <span class="comment"># (60000, 784)</span></span><br><span class="line"><span class="built_in">print</span>(t_train.shape) <span class="comment"># (60000,)</span></span><br><span class="line"><span class="built_in">print</span>(x_test.shape) <span class="comment"># (10000, 784)</span></span><br><span class="line"><span class="built_in">print</span>(t_test.shape) <span class="comment"># (10000,)</span></span><br></pre></td></tr></table></figure>
+<p>load_mnist函数以“(训练图像 ,训练标签 )，(测试图像，测试标签 )”的形式返回读入的MNIST数据。</p>
+<p>此外，还可以像load_mnist(normalize=True, flatten=True, one_hot_label=False) 这 样，设 置 3 个 参 数。</p>
+<blockquote>
+<p>参数</p>
+</blockquote>
+<ul>
+<li><p>第 1 个参数normalize设置是否将输入图像正规化为0<em>.</em>0～1<em>.</em>0的值。如果将该参数设置为False，则输入图像的像素会保持原来的0～255。</p>
+</li>
+<li><p>第2个参数flatten设置<strong>是否展开输入图像（变成一维数组）</strong>。如果将该参数设置为False，则输入图像为1 <em>×</em> 28 <em>×</em> 28的三维数组；若设置为True，则输入图像会保存为由784个元素构成的一维数组。</p>
+</li>
+<li><p>第3个参数one_hot_label设置是否将标签保存为one-hot表示（one-hot representation）。one-hot表示是<strong>仅正确解标签为1，其余皆为0的数组</strong>，就像[0,0,1,0,0,0,0,0,0,0]这样。当one_hot_label为False时，只是像7、2这样简单保存正确解标签；当one_hot_label为True时，标签则保存为one-hot表示。</p>
+</li>
+</ul>
+<h4 id="2-5-2-神经网络的推理处理"><a href="#2-5-2-神经网络的推理处理" class="headerlink" title="2.5.2 神经网络的推理处理"></a>2.5.2 神经网络的推理处理</h4><p>神经网络的输入层有784个神经元，输出层有10个神经元。</p>
+<p>输入层的784这个数字来源于图像大小的28 <em>×</em> 28 = 784，输出层的10这个数字来源于10类别分类（数字0到9，共10类别）。此外，这个神经网络有2个隐藏层，第1个隐藏层有50个神经元，第2个隐藏层有100个神经元。这个50和100可以设置为任何值。</p>
+<p>下面我们先定义get_data()、init_network()、predict()这3个函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载数据集，返回预测集数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span>():</span></span><br><span class="line">	(x_train, t_train), (x_test, t_test) = load_mnist(normalize=<span class="literal">True</span>, flatten=<span class="literal">True</span>, one_hot_label=<span class="literal">False</span>)</span><br><span class="line">	<span class="keyword">return</span> x_test, t_test</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化网络权重参数，这里通过读取文件加载参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_network</span>():</span></span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;sample_weight.pkl&quot;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">		network = pickle.load(f)</span><br><span class="line">	<span class="keyword">return</span> network</span><br><span class="line"></span><br><span class="line"><span class="comment"># 前向传播</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">network, x</span>):</span></span><br><span class="line">	W1, W2, W3 = network[<span class="string">&#x27;W1&#x27;</span>], network[<span class="string">&#x27;W2&#x27;</span>], network[<span class="string">&#x27;W3&#x27;</span>]</span><br><span class="line">	b1, b2, b3 = network[<span class="string">&#x27;b1&#x27;</span>], network[<span class="string">&#x27;b2&#x27;</span>], network[<span class="string">&#x27;b3&#x27;</span>]</span><br><span class="line">    a1 = np.dot(x, W1) + b1</span><br><span class="line"> 	z1 = sigmoid(a1)</span><br><span class="line"> 	a2 = np.dot(z1, W2) + b2</span><br><span class="line"> 	z2 = sigmoid(a2)</span><br><span class="line"> 	a3 = np.dot(z2, W3) + b3</span><br><span class="line">    <span class="comment"># softmax函数激活</span></span><br><span class="line"> 	y = softmax(a3)</span><br><span class="line"> 	<span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>main程序</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x, t = get_data()</span><br><span class="line">network = init_network()</span><br><span class="line">accuracy_cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">	y = predict(network, x[i])</span><br><span class="line">	p = np.argmax(y) <span class="comment"># 获取概率最高的元素的索引</span></span><br><span class="line">	<span class="keyword">if</span> p == t[i]:</span><br><span class="line">		accuracy_cnt += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy:&quot;</span> + <span class="built_in">str</span>(<span class="built_in">float</span>(accuracy_cnt) / <span class="built_in">len</span>(x)))</span><br></pre></td></tr></table></figure>
+<p>另外，在这个例子中，我们把load_mnist函数的参数normalize设置成了True。将normalize设置成True后，函数内部会进行转换，将图像的各个像素值除以255，使得数据的值在0<em>.</em>0～1<em>.</em>0的范围内。像这样把数据限定到某个范围内的处理称为<strong>正规化</strong>（normalization）。此外，对神经网络的输入数据进行某种既定的转换称为<strong>预处理</strong>（pre-processing）。这里，作为对输入图像的一种预处理，我们进行了正规化。</p>
+<p>预处理在神经网络（深度学习）中非常实用，其有效性已在提高识别性能和学习的效率等众多实验中得到证明。在刚才的例子中，作为一种预处理，我们将各个像素值除以 255，进行了简单的正规化。实际上，<strong>很多预处理都会考虑到数据的整体分布</strong>。比如，利用数据整体的均值或标准差，移动数据，使数据整体以0为中心分布，或者进行正规化，把数据的延展控制在一定范围内。除此之外，还有将数据整体的分布形状均匀化的方法，即<strong>数据白化</strong>（whitening）等。</p>
+<h4 id="2-5-2-批处理"><a href="#2-5-2-批处理" class="headerlink" title="2.5.2 批处理"></a>2.5.2 批处理</h4><p>从整体的处理流程来看，图3-26中，输入一个由784个元素（原本是一个28 <em>×</em> 28的二维数组）构成的一维数组后，输出一个有10个元素的一维数组。这是只输入一张图像数据时的处理流程。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106002333625.png" alt="image-20220106002333625"></p>
+<p>现在我们来考虑打包输入多张图像的情形。比如，我们想用predict()函数<strong>一次性打包处理100张</strong>图像。为此，可以把<strong>x</strong>的形状改为100 <em>×</em> 784，将100张图像打包作为输入数据。用图表示的话，如图3-27所示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106002351277.png" alt="image-20220106002351277"></p>
+<p>这种打包式的输入数据称为<strong>批（batch）</strong>。批有“捆”的意思，图像就如同纸币一样扎成一捆。</p>
+<blockquote>
+<p>批处理实现的main程序</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x, t = get_data()</span><br><span class="line">network = init_network()</span><br><span class="line">batch_size = <span class="number">100</span> <span class="comment"># 批数量</span></span><br><span class="line">accuracy_cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(x), batch_size):</span><br><span class="line">	x_batch = x[i:i+batch_size]</span><br><span class="line">	y_batch = predict(network, x_batch)</span><br><span class="line">	p = np.argmax(y_batch, axis=<span class="number">1</span>) <span class="comment"># 指定在100 × 10的数组中，沿着第1维方向（以第1维为轴）找到值最大的元素的索引</span></span><br><span class="line">	accuracy_cnt += np.<span class="built_in">sum</span>(p == t[i:i+batch_size])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy:&quot;</span> + <span class="built_in">str</span>(<span class="built_in">float</span>(accuracy_cnt) / <span class="built_in">len</span>(x)))</span><br></pre></td></tr></table></figure>
+<h3 id="2-6-小结"><a href="#2-6-小结" class="headerlink" title="2.6 小结"></a>2.6 小结</h3><ul>
+<li>神经网络中的激活函数使用平滑变化的sigmoid函数或ReLU函数。</li>
+<li>通过巧妙地使用NumPy多维数组，可以高效地实现神经网络。</li>
+<li>机器学习的问题<strong>大体上</strong>可以分为回归问题和分类问题。</li>
+<li>关于输出层的激活函数，回归问题中一般用恒等函数，分类问题中一般用softmax函数。</li>
+<li>分类问题中，输出层的神经元的数量设置为要分类的类别数。</li>
+<li>输入数据的集合称为批。通过以批为单位进行推理处理，能够实现高速的运算。</li>
+</ul>
+<h2 id="3-神经网络的学习"><a href="#3-神经网络的学习" class="headerlink" title="3 神经网络的学习"></a>3 神经网络的学习</h2><p>这里所说的“学习”是指从训练数据中<strong>自动获取最优权重参数</strong>的过程。本章中，为了使神经网络能进行学习，将导入损失函数这一指标。而学习的目的就是以该损失函数为基准，找出能使它的值达到最小的权重参数。为了找出尽可能小的损失函数的值，本章我们将介绍利用了函数斜率的梯度法。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106002742117.png" alt="image-20220106002742117"></p>
+<p>深 度 学 习 有 时 也 称 为 <strong>端 到 端 机 器 学 习</strong>（end-to-end machinelearning）。这里所说的端到端是指从一端到另一端的意思，也就是从原始数据（输入）中获得目标结果（输出）的意思。</p>
+<h3 id="3-1-损失函数"><a href="#3-1-损失函数" class="headerlink" title="3.1 损失函数"></a>3.1 损失函数</h3><p>神经网络的学习中所用的指标称为损失函数（loss function）。这个损失函数可以使用任意函数，但<strong>一般用均方误差和交叉熵误差</strong>等。</p>
+<h4 id="3-1-1-均方误差"><a href="#3-1-1-均方误差" class="headerlink" title="3.1.1 均方误差"></a>3.1.1 均方误差</h4><p>可以用作损失函数的函数有很多，其中最有名的是<strong>均方误差MSE</strong>（mean squared error）。均方误差如下式所示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img6/image-20220106002920904.png" alt="image-20220106002920904"></p>
+<p>这里，yk是表示神经网络的输出，tk表示<strong>监督数据</strong>，k表示数据的<strong>维数</strong>。</p>
+<p>手写数字识别的例子中，yk、tk是由如下10个元素构成的数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; y = [0.1, 0.05, 0.6, 0.0, 0.05, 0.1, 0.0, 0.1, 0.0, 0.0]</span><br><span class="line">&gt;&gt;&gt; t = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实现</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mean_squared_error</span>(<span class="params">y, t</span>):</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0.5</span> * np.<span class="built_in">sum</span>((y-t)**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; # 设“2”为正确解</span><br><span class="line">&gt;&gt;&gt; t = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&gt;&gt;&gt; # 例1：“2”的概率最高的情况（0.6）</span><br><span class="line">&gt;&gt;&gt; y = [0.1, 0.05, 0.6, 0.0, 0.05, 0.1, 0.0, 0.1, 0.0, 0.0]</span><br><span class="line">&gt;&gt;&gt; mean_squared_error(np.array(y), np.array(t))</span><br><span class="line">0.097500000000000031</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&gt;&gt;&gt; # 例2：“7”的概率最高的情况（0.6）</span><br><span class="line">&gt;&gt;&gt; y = [0.1, 0.05, 0.1, 0.0, 0.05, 0.1, 0.0, 0.6, 0.0, 0.0]</span><br><span class="line">&gt;&gt;&gt; mean_squared_error(np.array(y), np.array(t))</span><br><span class="line">0.59750000000000003</span><br></pre></td></tr></table></figure>
+<h4 id="3-1-2-交叉熵误差"><a href="#3-1-2-交叉熵误差" class="headerlink" title="3.1.2 交叉熵误差"></a>3.1.2 交叉熵误差</h4><p>除了均方误差之外，交叉熵误差（cross entropy error）也经常被用作损失函数。交叉熵误差如下式所示。</p>
+<script type="math/tex; mode=display">
+E=-\sum_{k}t_k\log{y_k}\tag{4.2}</script><p>yk是神经网络的输出，tk是正确解标签。并且，tk中<strong>只有正确解标签</strong>的索引为1，其他均为0（one-hot表示）。</p>
+<p>比如，假设正确解标签的索引是“2”，与之对应的神经网络的输出是0.6，则交叉熵误差是<em>−</em>log 0.6 = 0.51；若“2”对应的输出是0.1，则交叉熵误差为<em>−</em>log 0.1 = 2.30。也就是说，<strong>交叉熵误差的值是由正确解标签所对应的输出结果决定的</strong>。</p>
+<blockquote>
+<p>实现</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy_error</span>(<span class="params">y, t</span>):</span></span><br><span class="line">    delta = <span class="number">1e-7</span></span><br><span class="line">	<span class="keyword">return</span> -np.<span class="built_in">sum</span>(t * np.log(y + delta))</span><br></pre></td></tr></table></figure>
+<p>这里，参数y和t是NumPy数组。函数内部在计算np.log时，加上了一个微小值delta。这是因为，当出现np.log(0)时，np.log(0)会变为负无限大的-inf，这样一来就会导致后续计算无法进行。作为保护性对策，添加一个微小值可以防止负无限大的发生。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; t = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]</span><br><span class="line">&gt;&gt;&gt; y = [0.1, 0.05, 0.6, 0.0, 0.05, 0.1, 0.0, 0.1, 0.0, 0.0]</span><br><span class="line">&gt;&gt;&gt; cross_entropy_error(np.array(y), np.array(t))</span><br><span class="line">0.51082545709933802</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&gt;&gt;&gt; y = [0.1, 0.05, 0.1, 0.0, 0.05, 0.1, 0.0, 0.6, 0.0, 0.0]</span><br><span class="line">&gt;&gt;&gt; cross_entropy_error(np.array(y), np.array(t))</span><br><span class="line">2.3025840929945458</span><br></pre></td></tr></table></figure>
+<p>第一个例子中，正确解标签对应的输出为0<em>.</em>6，此时的交叉熵误差大约为0<em>.</em>51。第二个例子中，正确解标签对应的输出为0<em>.</em>1的低值，此时的交叉熵误差大约为2<em>.</em>3。由此可以看出，这些结果与我们前面讨论的内容是一致的。</p>
+<h4 id="3-1-3-mini-batch学习"><a href="#3-1-3-mini-batch学习" class="headerlink" title="3.1.3 mini-batch学习"></a>3.1.3 mini-batch学习</h4><p>机器学习使用训练数据进行学习。使用训练数据进行学习，严格来说，就是针对训练数据计算损失函数的值，找出使该值尽可能小的参数。因此，计算损失函数时必须将所有的训练数据作为对象。也就是说，如果训练数据有100个的话，我们就要把这100个损失函数的总和作为学习的指标。前面介绍的损失函数的例子中考虑的都是针对单个数据的损失函数。如果要求所有训练数据的损失函数的总和，以交叉熵误差为例，可以写成下面的式（4<em>.</em>3）。</p>
+<script type="math/tex; mode=display">
+E=-\frac{1}{N}\sum_{n}\sum_{k}t_{nk}\log{y_{nk}}\tag{4.3}</script><p>这里，假设数据有N个，tnk表示第n个数据的第k个元素的值（ynk是神经网络的输出，tnk是监督数据）。式子虽然看起来有一些复杂，其实只是把求单个数据的损失函数的式（4.2）扩大到了N份数据，不过最后还要<strong>除以N进行正规化</strong>。</p>
+<p>通过除以N，可以求单个数据的“平均损失函数”。通过这样的平均化，<strong>可以获得和训练数据的数量无关的统一指标</strong>。比如，即便训练数据有1000个或10000个，也可以求得单个数据的平均损失函数。</p>
+<p>另外，MNIST数据集的训练数据有60000个，如果以全部数据为对象求损失函数的和，则计算过程需要花费较长的时间。再者，如果遇到大数据，数据量会有几百万、几千万之多，这种情况下以全部数据为对象计算损失函数是不现实的。因此，我们从全部数据中选出一部分，<strong>作为全部数据的“近似”</strong>。神经网络的学习也是从训练数据中选出一批数据（<strong>称为mini-batch<em>,</em>小批量</strong>），然后对每个mini-batch进行学习。比如，从60000个训练数据中随机选择100笔，再用这100笔数据进行学习。这种学习方式称为<strong>mini-batch</strong>学习。</p>
+<h4 id="3-1-4-mini-batch版交叉熵误差实现"><a href="#3-1-4-mini-batch版交叉熵误差实现" class="headerlink" title="3.1.4 mini-batch版交叉熵误差实现"></a>3.1.4 mini-batch版交叉熵误差实现</h4><p>这里，我们来实现一个可以同时处理单个数据和批量数据（数据作为batch集中输入）两种情况的函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy_error</span>(<span class="params">y, t</span>):</span></span><br><span class="line">	<span class="keyword">if</span> y.ndim == <span class="number">1</span>:</span><br><span class="line">		t = t.reshape(<span class="number">1</span>, t.size)</span><br><span class="line">		y = y.reshape(<span class="number">1</span>, y.size)</span><br><span class="line">	batch_size = y.shape[<span class="number">0</span>]</span><br><span class="line">	<span class="keyword">return</span> -np.<span class="built_in">sum</span>(t * np.log(y + <span class="number">1e-7</span>)) / batch_size</span><br></pre></td></tr></table></figure>
+<p>这里，y是神经网络的输出，t是监督数据。y的维度为1时，即求单个数据的交叉熵误差时，需要改变数据的形状。并且，当输入为mini-batch时，要用batch的个数进行正规化，计算单个数据的平均交叉熵误差。</p>
+<h4 id="3-1-5-损失函数知识点补充"><a href="#3-1-5-损失函数知识点补充" class="headerlink" title="3.1.5 损失函数知识点补充"></a>3.1.5 损失函数知识点补充</h4><h3 id="3-2-梯度"><a href="#3-2-梯度" class="headerlink" title="3.2 梯度"></a>3.2 梯度</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://kisugitakumi.com">Kisugi Takumi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://kisugitakumi.com">https://kisugitakumi.com</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归Kisugi Takumi所有，如有转载，请註明来自原作者</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/Python/">Python</a></div><div class="post_share"><div class="social-share" data-image="/img/deeplearning.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/23/%E5%A4%A7%E6%AD%A3%E6%97%B6%E4%BB%A3/"><img class="prev-cover" src="/img/taisyoujidai.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大正时代</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/17/%E6%98%8E%E6%B2%BB%E6%97%B6%E4%BB%A3/"><img class="next-cover" src="/img/meijijidai.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">明治时代</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/04/15/Python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Python机器学习基础教程学习笔记"><img class="cover" src="/img/machine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-15</div><div class="title">Python机器学习基础教程学习笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">深度学习入门学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-text">1 感知机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%84%9F%E7%9F%A5%E6%9C%BA%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">1.1 感知机是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-text">1.2 多层感知机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%B0%8F%E7%BB%93"><span class="toc-text">1.3 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">2 神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BB%8E%E6%84%9F%E7%9F%A5%E6%9C%BA%E5%88%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">2.1 从感知机到神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-text">2.1.1 神经网络的例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%BC%95%E5%85%A5"><span class="toc-text">2.1.2 激活函数引入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-text">2.2 激活函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-sigmoid%E5%87%BD%E6%95%B0"><span class="toc-text">2.2.1 sigmoid函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-sigmoid%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.2.2 sigmoid函数实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0"><span class="toc-text">2.2.3 非线性函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-ReLU%E5%87%BD%E6%95%B0"><span class="toc-text">2.2.4 ReLU函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9F%A5%E8%AF%86%E7%82%B9%E8%A1%A5%E5%85%85"><span class="toc-text">2.2.5 激活函数知识点补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%EF%BC%89-%E6%A6%82%E8%BF%B0"><span class="toc-text">1） 概述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%EF%BC%89-sigmoid"><span class="toc-text">2） $sigmoid$</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%EF%BC%89-tanh"><span class="toc-text">3） $tanh$</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%EF%BC%89-ReLU"><span class="toc-text">4） $ReLU$</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5%EF%BC%89-Leaky-ReLU-PReLU%EF%BC%88Parametric-Relu%EF%BC%89-RReLU%EF%BC%88Random-ReLU%EF%BC%89"><span class="toc-text">5） Leaky ReLU, PReLU（Parametric Relu）, RReLU（Random ReLU）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%B8%80%E4%B8%AA%E4%B8%89%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.3 一个三层神经网络的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E8%BE%93%E5%87%BA%E5%B1%82%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.4 输出层的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-%E6%81%92%E7%AD%89%E5%87%BD%E6%95%B0%E5%92%8Csoftmax%E5%87%BD%E6%95%B0"><span class="toc-text">2.4.1 恒等函数和softmax函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-softmax%E5%87%BD%E6%95%B0%E7%9A%84%E7%89%B9%E5%BE%81"><span class="toc-text">2.4.2 softmax函数的特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-%E8%BE%93%E5%87%BA%E5%B1%82%E7%9A%84%E7%A5%9E%E7%BB%8F%E5%85%83%E6%95%B0%E9%87%8F"><span class="toc-text">2.4.3 输出层的神经元数量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB"><span class="toc-text">2.5 手写数字识别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1-MNIST%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">2.5.1 MNIST数据集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8E%A8%E7%90%86%E5%A4%84%E7%90%86"><span class="toc-text">2.5.2 神经网络的推理处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2-%E6%89%B9%E5%A4%84%E7%90%86"><span class="toc-text">2.5.2 批处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E5%B0%8F%E7%BB%93"><span class="toc-text">2.6 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0"><span class="toc-text">3 神经网络的学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-text">3.1 损失函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE"><span class="toc-text">3.1.1 均方误差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E4%BA%A4%E5%8F%89%E7%86%B5%E8%AF%AF%E5%B7%AE"><span class="toc-text">3.1.2 交叉熵误差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-mini-batch%E5%AD%A6%E4%B9%A0"><span class="toc-text">3.1.3 mini-batch学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-mini-batch%E7%89%88%E4%BA%A4%E5%8F%89%E7%86%B5%E8%AF%AF%E5%B7%AE%E5%AE%9E%E7%8E%B0"><span class="toc-text">3.1.4 mini-batch版交叉熵误差实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9F%A5%E8%AF%86%E7%82%B9%E8%A1%A5%E5%85%85"><span class="toc-text">3.1.5 损失函数知识点补充</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%A2%AF%E5%BA%A6"><span class="toc-text">3.2 梯度</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Kisugi Takumi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
