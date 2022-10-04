@@ -1,0 +1,1319 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Linux学习笔记（新） | Kisugi Takumi</title><meta name="keywords" content="Java,Linux"><meta name="author" content="Kisugi Takumi,zenghongyi1@google.com"><meta name="copyright" content="Kisugi Takumi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux，全称GNU&#x2F;Linux，是一种免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习笔记（新）">
+<meta property="og:url" content="https://kisugitakumi.github.io/2022/09/29/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Kisugi Takumi">
+<meta property="og:description" content="Linux，全称GNU&#x2F;Linux，是一种免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisugitakumi.github.io/img/linux.png">
+<meta property="article:published_time" content="2022-09-29T03:46:25.000Z">
+<meta property="article:modified_time" content="2022-10-04T12:16:26.557Z">
+<meta property="article:author" content="Kisugi Takumi">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisugitakumi.github.io/img/linux.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://kisugitakumi.github.io/2022/09/29/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Kisugi Takumi","link":"链接: ","source":"来源: Kisugi Takumi","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux学习笔记（新）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-04 20:16:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> 我的豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fab fa-steam-square"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/create/"><i class="fa-fw fas fa-user-edit"></i><span> 我的创作</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-kiss-wink-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/linux.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Kisugi Takumi</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> 我的豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fab fa-steam-square"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/create/"><i class="fa-fw fas fa-user-edit"></i><span> 我的创作</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-kiss-wink-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux学习笔记（新）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-29T03:46:25.000Z" title="发表于 2022-09-29 11:46:25">2022-09-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-04T12:16:26.557Z" title="更新于 2022-10-04 20:16:26">2022-10-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/">开发基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">10.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>34分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux学习笔记（新）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Linux学习笔记"><a href="#Linux学习笔记" class="headerlink" title="Linux学习笔记"></a>Linux学习笔记</h1><p>学习时间：2022年9月29日</p>
+<p>学习来源：<a target="_blank" rel="noopener" href="https://www.linuxprobe.com/basic-learning-00.html">Linux就该这么学第二版</a></p>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><h3 id="1-1-开源许可"><a href="#1-1-开源许可" class="headerlink" title="1.1 开源许可"></a>1.1 开源许可</h3><ul>
+<li><p><strong>GNU通用公共许可证（</strong>General Public License，<strong>GPL）</strong>：目前广泛使用的开源软件许可协议之一，用户享有运行、学习、共享和修改软件的自由。GPL的目的是保证程序员在开源社区中所做的工作对整个世界是有益的，所开发的软件也是自由的，并极力避免开源软件被私有化以及被无良软件公司所剥削。</p>
+<p>  现在，只要软件中包含了遵循GPL许可证的产品或代码，该软件就必须开源、免费，因此这个许可证<strong>并不适合商业收费软件</strong>。遵循该许可证的开源软件数量极其庞大，包括Linux内核在内的大多数的开源软件都是基于GPL许可证的。</p>
+</li>
+<li><p><strong>较宽松通用公共许可证</strong>（Lesser GPL, LGPL）：一个主要为保护类库权益而设计的GPL开源协议。与标准GPL许可证相比，LGPL允许商业软件以类库引用的方式使用开源代码，而不用将其产品整体开源，因此普遍被商业软件用来引用类库代码。</p>
+</li>
+<li><p><strong>伯克利软件发布版</strong>（Berkeley Software Distribution, BSD）许可证：另一款被广泛使用的开源软件许可协议。相较于GPL许可证，BSD更加宽松，适合于商业用途。用户可以使用、修改和重新发布遵循该许可证的软件，并且可以将软件作为商业软件发布和销售。</p>
+</li>
+<li><p><strong>Apache许可证</strong>（Apache License）：顾名思义，是由Apache软件基金会负责发布和维护的开源许可协议。作为当今世界上最大的开源基金会，Apache不仅因此协议而出名，还因市场占有率第一的Web服务器软件而享誉行业。目前使用最广泛的Apache许可证是2004年发行的2.0版本，它在为开发人员提供版权及专利许可的同时，还允许用户拥有修改代码及再发布的自由。该许可证非常<strong>适合用于商业软件</strong>，现在热门的Hadoop、Apache HTTP Server、MongoDB等项目都是基于该许可证研发的。</p>
+</li>
+<li><p><strong>MIT许可证</strong>（Massachusetts Institute of Technology License）：源于麻省理工学院，又称为X11协议。MIT许可证是目前限制最少的开源许可证之一，用户可以使用、复制、修改、再发布软件，而且只要在修改后的软件源代码中保留原作者的许可信息即可，因此普遍被商业软件（例如jQuery与Node.js）所使用。也就是说，MIT许可证宽松到一个新境界，即用户只要在代码中声明了MIT许可证和版权信息，就可以去做任何事情，而无须承担任何责任。</p>
+</li>
+<li><p><strong>Mozilla公共许可证（</strong>Mozilla Public License，<strong>MPL）</strong>：于1998年初由Netscape公司的Mozilla小组设计，原因是它们认为GPL和BSD许可证不能很好地解决开发人员对源代码的需求和收益之间的平衡关系，因此便将这两个协议进行融合，形成了MPL。</p>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929142916796.png" alt="image-20220929142916796"></p>
+<h3 id="1-2-常见的Linux系统"><a href="#1-2-常见的Linux系统" class="headerlink" title="1.2 常见的Linux系统"></a>1.2 常见的Linux系统</h3><p>Linux<strong>系统内核</strong>指的是一个由Linus Torvalds负责维护，提供硬件抽象层、磁盘、文件系统控制及多任务功能的系统核心程序。</p>
+<p>Linux<strong>发行套件系统</strong>是我们常说的Linux操作系统，也就是由Linux内核与各种常用软件的集合产品。</p>
+<ul>
+<li><strong>红帽企业版系统</strong>（RHEL,RedHatEnterpriseLinux）：最初于2002年3月面世。红帽企业版Linux当时是全世界使用最广泛的Linux系统之一，在世界500强企业中，所有的航空公司、电信服务提供商、商业银行、医疗保健公司均无一例外地通过该系统向外提供服务。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929144200752.png" alt="image-20220929144200752"></p>
+<ul>
+<li><strong>CentOS社区企业操作系统</strong>（Community Enterprise Operating System）：由开源社区研发和维护的一款企业级Linux操作系统，在2014年1月被红帽公司正式收购。从本质上来说，由于CentOS是针对红帽企业版Linux进行修改后再发布的版本，因此不会针对它单独开发新功能。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929144212291.png" alt="image-20220929144212291"></p>
+<ul>
+<li><strong>Fedora Linux</strong>：Fedora Linux是正正经经的红帽公司自己的产品，最初是为了给红帽企业版Linux制作和测试第三方软件而构建的产品，孕育了最早的开源社群，固定每6个月发布一个新版本，当前在全球已经有几百万的用户。Fedora是桌面版本的Linux系统，也被称为RHEL系统的“试验田”。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929144219375.png" alt="image-20220929144219375"></p>
+<ul>
+<li><strong>Debian Linux</strong>：Debian系统具有很强的稳定性和安全性，并且提供了免费的基础支持，可以良好地适应各种硬件架构，以及提供近十万种不同的开源软件，在国外拥有很高的认可度和使用率。虽然Debian也是基于Linux内核，但是在实际操作中还是跟红帽公司的产品有一些差别，例如RHEL 7和RHEL 8分别使用Yum和DNF工具来安装软件，而Debian使用的则是APT工具。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929144227232.png" alt="image-20220929144227232"></p>
+<ul>
+<li><strong>Ubuntu Linux</strong>：ubuntu是一款桌面版Linux系统，以Debian为蓝本进行修改和衍生而来，发布周期为6个月。Ubuntu系统现在由Canonical公司提供商业技术支持，只要购买付费技术支持服务就能获得帮助，桌面版系统最长时间3年，服务器版系统最长时间5年。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929144234148.png" alt="image-20220929144234148"></p>
+<ul>
+<li><strong>Kali Linux</strong>：这款系统一般是供黑客或安全人员使用的，能够以此为平台对网站进行渗透测试，通俗来讲就是能“攻击”网站。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929144242593.png" alt="image-20220929144242593"></p>
+<h2 id="2-基础命令"><a href="#2-基础命令" class="headerlink" title="2 基础命令"></a>2 基础命令</h2><h3 id="2-1-shell和bash"><a href="#2-1-shell和bash" class="headerlink" title="2.1 shell和bash"></a>2.1 shell和bash</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929145041331.png" alt="image-20220929145041331"></p>
+<p>管理计算机硬件的其实是内核，用户正是通过<strong>shell</strong>来跟内核通信的，从本质上说shell是一个能执行各种命令的宏处理器。而bash（<code>/bin/bash</code>）就是linux默认的shell。</p>
+<p>Shell就是终端程序的统称，它充当了人与内核（硬件）之间的翻译官，用户把一些命令“告诉”终端程序，它就会调用相应的程序服务去完成某些工作。现在包括红帽系统在内的许多主流Linux系统默认使用的终端是Bash（<code>Bourne-Again SHell</code>）解释器。</p>
+<p>必须肯定的是，Linux系统中有些图形化工具（比如逻辑卷管理器[Logical Volume Manager，LVM]）确实非常好用。但是，很多图形化工具其实只是调用了命令脚本来完成相应的工作，或往往只是为了完成某种特定工作而设计的，缺乏Linux命令原有的灵活性及可控性。再者，图形化工具相较于Linux命令行界面会更加消耗系统资源，因此经验丰富的运维人员甚至都不会给Linux系统安装图形界面，在需要开始运维工作时直接通过命令行模式远程连接过去。</p>
+<h3 id="2-2-命令格式"><a href="#2-2-命令格式" class="headerlink" title="2.2 命令格式"></a>2.2 命令格式</h3><p>常见的执行Linux命令的格式是下面这样的：</p>
+<p><strong>命令名称   [命令参数]   [命令对象]</strong></p>
+<p>参数可以用长格式（完整的选项名称），也可以用短格式（单个字母的缩写），两者分别用<code>--</code>与<code>-</code>作为前缀。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长格式</td>
+<td><code>man --help</code></td>
+</tr>
+<tr>
+<td>短格式</td>
+<td><code>man -h</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注意：命令名称、命令参数与命令对象之间要用空格进行分隔，且字母严格区分大小写。</p>
+<p>注意：<code>[root@linuxprobe～]</code>这部分内容是终端提示符，它用于向用户展示一些基本的信息——当前登录<strong>用户名</strong>为root，简要的<strong>主机名</strong>是linuxprobe，所在目录是<code>～</code>（这里的～是指用户家目录），<code>#</code>表示管理员身份（如果是<code>$</code>则表示普通用户，相应的权限也会小一些）。</p>
+<h3 id="2-3-常用系统工作命令"><a href="#2-3-常用系统工作命令" class="headerlink" title="2.3 常用系统工作命令"></a>2.3 常用系统工作命令</h3><h4 id="2-3-1-echo"><a href="#2-3-1-echo" class="headerlink" title="2.3.1 echo"></a>2.3.1 echo</h4><p>echo命令用于在终端设备上输出字符串或变量提取后的值</p>
+<p>语法格式为<code>echo [字符串] [$变量]</code></p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-24-5-centos ~]<span class="comment"># echo hello world</span></span><br><span class="line">hello world</span><br><span class="line">[root@VM-24-5-centos ~]<span class="comment"># echo $SHELL</span></span><br><span class="line">/bin/bash</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-2-date"><a href="#2-3-2-date" class="headerlink" title="2.3.2 date"></a>2.3.2 date</h4><p>date命令用于显示或设置系统的时间与日期</p>
+<p>语法格式为<code>date [+指定的格式]</code></p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-24-5-centos ~]<span class="comment"># date</span></span><br><span class="line">Thu Sep 29 15:45:13 CST 2022</span><br><span class="line">[root@VM-24-5-centos ~]<span class="comment"># date &quot;+%Y-%m-%d %H:%M:%S&quot;</span></span><br><span class="line">2022-09-29 15:45:20</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-3-reboot"><a href="#2-3-3-reboot" class="headerlink" title="2.3.3 reboot"></a>2.3.3 reboot</h4><p>reboot命令用于重启系统，输入该命令后按回车键执行即可。</p>
+<p>由于重启计算机这种操作会涉及硬件资源的管理权限，因此最好是以root管理员的身份来重启，普通用户在执行该命令时可能会被拒绝。</p>
+<h4 id="2-3-4-poweroff"><a href="#2-3-4-poweroff" class="headerlink" title="2.3.4 poweroff"></a>2.3.4 poweroff</h4><p>poweroff命令用于关闭系统，输入该命令后按回车键执行即可。</p>
+<p>与上面相同，该命令也会涉及硬件资源的管理权限，因此最好还是以root管理员的身份来关闭电脑。</p>
+<h4 id="2-3-5-wget"><a href="#2-3-5-wget" class="headerlink" title="2.3.5 wget"></a>2.3.5 wget</h4><p>wget命令用于在终端命令行中下载网络文件，英文全称为“web get”</p>
+<p>语法格式为<code>wget [参数] 网址</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b</td>
+<td>后台下载模式</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>下载到指定目录</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>最大尝试次数</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>断点续传</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>下载页面内所有资源，包括图片、视频等</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>递归下载</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p>尝试使用wget命令从本书的配套站点中下载本书最新的PDF格式的电子文档：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929154830371.png" alt="image-20220929154830371"></p>
+<h4 id="2-3-6-ps"><a href="#2-3-6-ps" class="headerlink" title="2.3.6 ps"></a>2.3.6 ps</h4><p>ps命令用于查看系统中的进程状态，英文全称为“processes”</p>
+<p>语法格式为<code>ps [参数]</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>显示所有进程（包括其他用户的进程）</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>用户以及其他详细信息</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>显示没有控制终端的进程</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在Linux系统中有5种常见的进程状态，分别为运行、中断、不可中断、僵死与停止，其各自含义如下所示：</p>
+<ul>
+<li><strong>R（运行）</strong>：进程正在运行或在运行队列中等待。</li>
+<li><strong>S（中断）</strong>：进程处于休眠中，当某个条件形成后或者接收到信号时，则脱离该  状态。</li>
+<li><strong>D（不可中断）</strong>：进程不响应系统异步信号，即便用kill命令也不能将其中断。</li>
+<li><strong>Z（僵死）</strong>：进程已经终止，但进程描述符依然存在, 直到父进程调用wait4()系统函数后将进程释放。</li>
+<li><strong>T（停止）</strong>：进程收到停止信号后停止运行。</li>
+</ul>
+<p>除了上面5种常见的进程状态，还有可能是高优先级（<code>&lt;</code>）、低优先级（<code>N</code>）、被锁进内存（<code>L</code>）、包含子进程（<code>s</code>）以及多线程（<code>l</code>）这5种补充形式。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929155217121.png" alt="image-20220929155217121"></p>
+<p>注意：在Linux系统中的命令参数有长短格式之分，长格式和长格式之间不能合并，长格式和短格式之间也不能合并，但<strong>短格式和短格式之间是可以合并的</strong>，合并后仅保留一个减号（-）即可。另外ps命令可允许参数不加减号（-），因此可直接写成<code>ps aux</code>的样子。</p>
+<h4 id="2-3-7-pstree"><a href="#2-3-7-pstree" class="headerlink" title="2.3.7 pstree"></a>2.3.7 pstree</h4><p>pstree命令用于以树状图的形式展示进程之间的关系，英文全称为“process tree”，输入该命令后按回车键执行即可。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929155449224.png" alt="image-20220929155449224"></p>
+<h4 id="2-3-8-top"><a href="#2-3-8-top" class="headerlink" title="2.3.8 top"></a>2.3.8 top</h4><p>top命令用于<strong>动态地监视进程活动及系统负载</strong>等信息，输入该命令后按回车键执行即可。</p>
+<p>前面介绍的命令都是静态地查看系统状态，不能实时滚动最新数据，而top命令能够动态地查看系统状态。top是相当好用的性能分析工具。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929161112813.png" alt="image-20220929161112813"></p>
+<p>top命令执行结果的前5行为系统整体的统计信息，其所代表的含义如下：</p>
+<ul>
+<li>第1行：系统时间、运行时间、登录终端数、系统负载（3个数值分别为1分钟、5分钟、15分钟内的平均值，数值越小意味着负载越低）。</li>
+<li>第2行：进程总数、运行中的进程数、睡眠中的进程数、停止的进程数、僵死的进程数。</li>
+<li>第3行：用户占用资源百分比、系统内核占用资源百分比、改变过优先级的进程资源百分比、空闲的资源百分比等。其中数据均为CPU数据并以百分比格式显示，例如“99.9 id”意味着有99.9%的CPU处理器资源处于空闲。</li>
+<li>第4行：物理内存总量、内存空闲量、内存使用量、作为内核缓存的内存量。</li>
+<li>第5行：虚拟内存总量、虚拟内存空闲量、虚拟内存使用量、已被提前加载的内存量。</li>
+</ul>
+<h4 id="2-3-9-nice"><a href="#2-3-9-nice" class="headerlink" title="2.3.9 nice"></a>2.3.9 nice</h4><p>nice命令用于调整进程的优先级</p>
+<p>语法格式为<code>nice 优先级数字 服务名称</code></p>
+<p>在top命令输出的结果中，<code>PR</code>和<code>NI</code>值代表的是进程的优先级，数字越低（取值范围是<code>-20～19</code>），优先级越高。在日常的生产工作中，可以将一些不重要进程的优先级调低，让紧迫的服务更多地利用CPU和内存资源，以达到合理分配系统资源的目的。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p>例如将bash服务的优先级调整到最高：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nice -n -20 bash</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-10-pidof"><a href="#2-3-10-pidof" class="headerlink" title="2.3.10 pidof"></a>2.3.10 pidof</h4><p>pidof命令用于查询某个指定服务进程的PID号码值</p>
+<p>语法格式为<code>pidof [参数] 服务名称</code></p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-24-5-centos ~]<span class="comment"># pidof sshd</span></span><br><span class="line">16003 8979 1355</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-11-kill"><a href="#2-3-11-kill" class="headerlink" title="2.3.11 kill"></a>2.3.11 kill</h4><p>kill命令用于终止某个指定PID值的服务进程</p>
+<p>语法格式为<code>kill [参数] 进程的PID</code></p>
+<p>但有时系统会提示进程无法被终止，此时可以加参数-9，表示最高级别地强制杀死进程。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 16003</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-系统状态检测命令"><a href="#2-4-系统状态检测命令" class="headerlink" title="2.4 系统状态检测命令"></a>2.4 系统状态检测命令</h3><h4 id="2-4-1-ifconfig"><a href="#2-4-1-ifconfig" class="headerlink" title="2.4.1 ifconfig"></a>2.4.1 ifconfig</h4><p>ifconfig命令用于获取网卡配置与网络状态等信息，英文全称为“interface config”</p>
+<p>语法格式为<code>ifconfig [参数] [网络设备]</code></p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929162548677.png" alt="image-20220929162548677"></p>
+<h4 id="2-4-2-uptime"><a href="#2-4-2-uptime" class="headerlink" title="2.4.2 uptime"></a>2.4.2 uptime</h4><p>uptime命令用于查看系统的负载信息，输入该命令后按回车键执行即可。</p>
+<p>它可以显示当前系统时间、系统已运行时间、启用终端数量以及平均负载值等信息。平均负载值指的是系统在最近1分钟、5分钟、15分钟内的压力情况。所以建议负载值保持在1左右，在生产环境中不要超过5就好。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929162731366.png" alt="image-20220929162731366"></p>
+<h4 id="2-4-3-free"><a href="#2-4-3-free" class="headerlink" title="2.4.3 free"></a>2.4.3 free</h4><p>free命令用于显示当前系统中内存的使用量信息</p>
+<p>语法格式为<code>free [-h]</code>，<code>-h</code>为易读模式，建议加上</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929163130112.png" alt="image-20220929163130112"></p>
+<h4 id="2-4-4-last"><a href="#2-4-4-last" class="headerlink" title="2.4.4 last"></a>2.4.4 last</h4><p>last命令用于调取主机的被访记录，输入该命令后按回车键执行即可。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929163544445.png" alt="image-20220929163544445"></p>
+<h4 id="2-4-5-netstat"><a href="#2-4-5-netstat" class="headerlink" title="2.4.5 netstat"></a>2.4.5 netstat</h4><p>netstat命令用于显示如网络连接、路由表、接口状态等的网络相关信息，英文全称为“network status”</p>
+<p>语法格式为<code>netstat [参数]</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>显示所有连接中的Socket</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>显示正在使用的Socket信息</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>显示TCP协议的连接状态</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>显示UDP协议的连接状态</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>使用IP地址，不使用域名</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>仅列出正在监听的服务状态</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>显示网卡列表信息</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>显示路由表信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220929163745636.png" alt="image-20220929163745636"></p>
+<h4 id="2-4-6-history"><a href="#2-4-6-history" class="headerlink" title="2.4.6 history"></a>2.4.6 history</h4><p>history命令用于显示执行过的命令历史</p>
+<p>语法格式为<code>history [-c]</code>，可以使用-c参数清空所有的命令历史记录</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930160826959.png" alt="image-20220930160826959"></p>
+<p>历史命令会被保存到用户家目录中的<code>.bash_history</code>文件中。Linux系统中以点（<code>.</code>）开头的文件均代表<strong>隐藏文件</strong>，这些文件大多数为系统服务文件，可以用cat命令查看其文件内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.bash_history</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-7-sosreport"><a href="#2-4-7-sosreport" class="headerlink" title="2.4.7 sosreport"></a>2.4.7 sosreport</h4><p>sosreport命令用于<strong>收集系统配置及架构信息并输出诊断文档</strong>，输入该命令后按回车键执行即可。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# sosreport</span><br><span class="line">sosreport (version 3.6)</span><br><span class="line">This command will collect diagnostic and configuration information from</span><br><span class="line">this Red Hat Enterprise Linux system and installed applications.</span><br><span class="line"></span><br><span class="line">An archive containing the collected information will be generated in</span><br><span class="line">/var/tmp/sos.9_i0glu8 and may be provided to a Red Hat support</span><br><span class="line">representative.</span><br><span class="line"></span><br><span class="line">Any information provided to Red Hat will be treated in accordance with</span><br><span class="line">the published support policies at:</span><br><span class="line">https://access.redhat.com/support/</span><br><span class="line">The generated archive may contain data considered sensitive and its</span><br><span class="line">content should be reviewed by the originating organization before being</span><br><span class="line">passed to any third party.</span><br><span class="line"></span><br><span class="line">No changes will be made to system configuration.</span><br><span class="line">Press ENTER to continue, or CTRL-C to quit.</span><br><span class="line">此处按下回车键进行确认</span><br><span class="line">Please enter the case id that you are generating this report for []:此处按下回车键进行确认</span><br><span class="line">Setting up archive ...</span><br><span class="line">Setting up plugins ...</span><br><span class="line">Running plugins. Please wait ...</span><br><span class="line">………………省略部分输出信息………………</span><br><span class="line">Finished running plugins </span><br><span class="line">Creating compressed archive...</span><br><span class="line"></span><br><span class="line">Your sosreport has been generated and saved in:</span><br><span class="line">/var/tmp/sosreport-linuxprobe.com-2021-05-18-jnkaspu.tar.xz</span><br><span class="line"></span><br><span class="line">The checksum is: 9fbecbd167b7e5836db1ff8f068c4db3</span><br><span class="line">Please send this file to your support representative.</span><br></pre></td></tr></table></figure>
+<h3 id="2-5-查找定位文件命令"><a href="#2-5-查找定位文件命令" class="headerlink" title="2.5 查找定位文件命令"></a>2.5 查找定位文件命令</h3><h4 id="2-5-1-pwd"><a href="#2-5-1-pwd" class="headerlink" title="2.5.1 pwd"></a>2.5.1 pwd</h4><p>pwd命令用于显示用户当前所处的工作目录，英文全称为“print working directory”，输入该命令后按回车键执行即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-24-5-centos ~]<span class="comment"># pwd</span></span><br><span class="line">/root</span><br></pre></td></tr></table></figure>
+<h4 id="2-5-2-cd"><a href="#2-5-2-cd" class="headerlink" title="2.5.2 cd"></a>2.5.2 cd</h4><p>cd命令用于切换当前的工作路径，英文全称为“change directory”</p>
+<p>语法格式为<code>cd [参数] [目录]</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-24-5-centos ~]<span class="comment"># cd /etc/</span></span><br><span class="line">[root@VM-24-5-centos etc]<span class="comment"># cd ..</span></span><br><span class="line">[root@VM-24-5-centos /]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-5-3-ls"><a href="#2-5-3-ls" class="headerlink" title="2.5.3 ls"></a>2.5.3 ls</h4><p>ls命令用于显示目录中的文件信息，英文全称为“list”</p>
+<p>语法格式为<code>ls [参数] [文件名称]</code></p>
+<ul>
+<li><code>-a</code>参数可以看到全部文件（包括隐藏文件）</li>
+<li><code>-l</code>参数可以查看文件的属性、大小等详细信息</li>
+<li>将这两个参数整合之后，再执行ls命令即可查看当前目录中的所有文件并输出这些文件的属性信息，注意<code>-</code>不能省略，只有ps命令才可以省略</li>
+</ul>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930161431186.png" alt="image-20220930161431186"></p>
+<h4 id="2-5-4-find"><a href="#2-5-4-find" class="headerlink" title="2.5.4 find"></a>2.5.4 find</h4><p>find命令用于按照指定条件来查找文件所对应的位置</p>
+<p>语法格式为<code>find [查找范围] 寻找条件</code></p>
+<p>本书中会多次提到“<strong>Linux系统中的一切都是文件</strong>”。在Linux系统中，搜索工作一般都是通过find命令来完成的，它可以使用不同的文件特性作为寻找条件（如文件名、大小、修改时间、权限等信息），一旦匹配成功则默认将信息显示到屏幕上。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-name</td>
+<td>匹配名称</td>
+</tr>
+<tr>
+<td>-perm</td>
+<td>匹配权限（mode为完全匹配，-mode为包含即可）</td>
+</tr>
+<tr>
+<td>-user</td>
+<td>匹配所有者</td>
+</tr>
+<tr>
+<td>-group</td>
+<td>匹配所有组</td>
+</tr>
+<tr>
+<td>-mtime -n +n</td>
+<td>匹配修改内容的时间（-n指n天以内，+n指n天以前）</td>
+</tr>
+<tr>
+<td>-atime -n +n</td>
+<td>匹配访问文件的时间（-n指n天以内，+n指n天以前）</td>
+</tr>
+<tr>
+<td>-ctime -n +n</td>
+<td>匹配修改文件权限的时间（-n指n天以内，+n指n天以前）</td>
+</tr>
+<tr>
+<td>-nouser</td>
+<td>匹配无所有者的文件</td>
+</tr>
+<tr>
+<td>-nogroup</td>
+<td>匹配无所有组的文件</td>
+</tr>
+<tr>
+<td>-newer f1 !f2</td>
+<td>匹配比文件f1新但比f2旧的文件</td>
+</tr>
+<tr>
+<td>-type b/d/c/p/l/f</td>
+<td>匹配文件类型（后面的字幕字母依次表示块设备、目录、字符设备、管道、链接文件、文本文件）</td>
+</tr>
+<tr>
+<td>-size</td>
+<td>匹配文件的大小（+50KB为查找超过50KB的文件，而-50KB为查找小于50KB的文件）</td>
+</tr>
+<tr>
+<td>-prune</td>
+<td>忽略某个目录</td>
+</tr>
+<tr>
+<td>-exec …… {}\;</td>
+<td>后面可跟用于进一步处理搜索结果的命令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p>根据文件系统层次标准（Filesystem Hierarchy Standard）协议，Linux系统中的<strong>配置文件</strong>会保存到<code>/etc</code>目录中。如果要想获取该目录中所有以host开头的文件列表，可以执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -name <span class="string">&quot;host*&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930162454494.png" alt="image-20220930162454494"></p>
+<h3 id="2-6-文本文件编辑命令"><a href="#2-6-文本文件编辑命令" class="headerlink" title="2.6 文本文件编辑命令"></a>2.6 文本文件编辑命令</h3><h4 id="2-6-1-cat"><a href="#2-6-1-cat" class="headerlink" title="2.6.1 cat"></a>2.6.1 cat</h4><p>cat命令用于查看纯文本文件（内容较少的），英文全称为“concatenate”</p>
+<p>语法格式为<code>cat [参数] 文件名称</code>，<code>-n</code>用于显示行号</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="comment"># cat -n initial-setup-ks.cfg </span></span><br><span class="line">     1	<span class="comment">#version=RHEL8</span></span><br><span class="line">     2	<span class="comment"># X Window System configuration information</span></span><br><span class="line">     3	xconfig  --startxonboot</span><br><span class="line">     4	<span class="comment"># License agreement</span></span><br><span class="line">     5	eula --agreed</span><br><span class="line">     6	<span class="comment"># Use graphical install</span></span><br><span class="line">     7	graphical</span><br><span class="line">     8	<span class="comment"># Network information</span></span><br><span class="line">     9	network  --bootproto=dhcp --device=ens160 --onboot=off --ipv6=auto --no-activate</span><br><span class="line">    10	network  --bootproto=dhcp --hostname=localhost.localdomain</span><br><span class="line">    11	repo --name=<span class="string">&quot;AppStream&quot;</span> --baseurl=file:///run/install/repo/AppStream</span><br><span class="line">    12	ignoredisk --only-use=sda</span><br><span class="line">    13	<span class="comment"># Use CDROM installation media</span></span><br><span class="line">    14	cdrom</span><br><span class="line">    15	<span class="comment"># Run the Setup Agent on first boot</span></span><br><span class="line">    16	firstboot --<span class="built_in">enable</span></span><br><span class="line">    17	<span class="comment"># System services</span></span><br><span class="line">………………省略部分输出信息………………</span><br></pre></td></tr></table></figure>
+<h4 id="2-6-2-more"><a href="#2-6-2-more" class="headerlink" title="2.6.2 more"></a>2.6.2 more</h4><p>more命令用于查看纯文本文件（内容较多的）</p>
+<p>语法格式为<code>more [参数] 文件名称</code>，使用空格键或回车键向下翻页</p>
+<h4 id="2-6-3-head"><a href="#2-6-3-head" class="headerlink" title="2.6.3 head"></a>2.6.3 head</h4><p>head命令用于查看纯文本文件的前<em>N</em>行</p>
+<p>语法格式为<code>head [参数] 文件名称</code>，<code>-n</code>跟上数字显示多少行</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 10 a.txt</span><br></pre></td></tr></table></figure>
+<h4 id="2-6-4-tail"><a href="#2-6-4-tail" class="headerlink" title="2.6.4 tail"></a>2.6.4 tail</h4><p>tail命令用于查看纯文本文件的后<em>N</em>行或<strong>持续刷新文件的最新内容</strong></p>
+<p>语法格式为<code>tail [参数] 文件名称</code></p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -n 10 a.txt</span><br></pre></td></tr></table></figure>
+<p>tail命令最强悍的功能是能够持续刷新一个文件的内容，当想要实时查看最新的日志文件时，这特别有用，此时的命令格式为<code>tail -f 文件名称</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-6-5-grep"><a href="#2-6-5-grep" class="headerlink" title="2.6.5 grep"></a>2.6.5 grep</h4><p>grep命令用于按行提取文本内容，</p>
+<p>语法格式为<code>grep [参数] 文件名称</code></p>
+<p>grep命令是用途最广泛的<strong>文本搜索匹配工具</strong>（即正则表达式）。它虽然有很多参数，但是大多数基本上都用不到。在这里只讲grep命令两个最常用的参数：</p>
+<ul>
+<li><code>-n</code>参数用来显示搜索到的信息的行号；</li>
+<li><code>-v</code>参数用于反选信息（即没有包含关键词的所有信息行）。</li>
+</ul>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p>在Linux系统中，/etc/passwd文件保存着所有的用户信息，而一旦用户的登录终端被设置成/sbin/nologin，则不再允许登录系统，因此可以使用grep命令查找出当前系统中不允许登录系统的所有用户的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep /sbin/nologin /etc/passwd</span><br></pre></td></tr></table></figure>
+<h3 id="2-7-文件目录管理命令"><a href="#2-7-文件目录管理命令" class="headerlink" title="2.7 文件目录管理命令"></a>2.7 文件目录管理命令</h3><h4 id="2-7-1-touch"><a href="#2-7-1-touch" class="headerlink" title="2.7.1 touch"></a>2.7.1 touch</h4><p>touch命令用于<strong>创建空白文件</strong>或设置文件的时间</p>
+<p>语法格式为<code>touch [参数] 文件名称</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>仅修改“读取时间”（atime）</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>仅修改“修改时间”（mtime）</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>同时修改atime与mtime</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930163845401.png" alt="image-20220930163845401"></p>
+<h4 id="2-7-2-mkdir"><a href="#2-7-2-mkdir" class="headerlink" title="2.7.2 mkdir"></a>2.7.2 mkdir</h4><p>mkdir命令用于创建空白的目录，英文全称为“make directory”</p>
+<p>语法格式为<code>mkdir [参数] 目录名称</code></p>
+<p>除了能创建单个空白目录外，mkdir命令还可以结合-p参数来递归创建出具有嵌套层叠关系的文件目录。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930164026826.png" alt="image-20220930164026826"></p>
+<h4 id="2-7-3-cp"><a href="#2-7-3-cp" class="headerlink" title="2.7.3 cp"></a>2.7.3 cp</h4><p>cp命令用于复制文件或目录，英文全称为“copy”</p>
+<p>语法格式为<code>cp [参数] 源文件名称 目标文件名称</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-p</td>
+<td>保留原始文件的属性</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>若对象为“链接文件”，则保留该“链接文件”的属性</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>递归持续复制（用于目录）</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>若目标文件存在则询问是否覆盖</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>相当于-pdr（p、d、r为上述参数）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p>使用touch命令创建一个名为install.log的普通空白文件，然后将其复制为一份名为x.log的备份文件，最后再使用ls命令查看目录中的文件。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930164528922.png" alt="image-20220930164528922"></p>
+<h4 id="2-7-4-mv"><a href="#2-7-4-mv" class="headerlink" title="2.7.4 mv"></a>2.7.4 mv</h4><p>mv命令用于剪切或重命名文件，英文全称为“move”</p>
+<p>语法格式为<code>mv [参数] 源文件名称 目标文件名称</code></p>
+<h4 id="2-7-5-rm"><a href="#2-7-5-rm" class="headerlink" title="2.7.5 rm"></a>2.7.5 rm</h4><p>rm命令用于删除文件或目录，英文全称为“remove”</p>
+<p>语法格式为<code>rm [参数] 文件  名称</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-f</td>
+<td>强制执行</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>删除前询问</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>删除目录</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示过程</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930164712029.png" alt="image-20220930164712029"></p>
+<h4 id="2-7-6-file"><a href="#2-7-6-file" class="headerlink" title="2.7.6 file"></a>2.7.6 file</h4><p>file命令用于查看文件的类型，语法格式为<code>file文件名称</code></p>
+<p>Linux系统中，由于文本、目录、设备等所有这些一切都统称为文件，但是它们又不像Windows系统那样都有后缀，因此很难通过文件名一眼判断出具体的文件类型，这时就需要使用file命令来查看文件类型了。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930164835218.png" alt="image-20220930164835218"></p>
+<h4 id="2-7-7-tar"><a href="#2-7-7-tar" class="headerlink" title="2.7.7 tar"></a>2.7.7 tar</h4><p>tar命令用于对文件进行打包压缩或解压，语法格式为<code>tar 参数 文件名称</code></p>
+<p>在Linux系统中，主要使用的是<code>.tar</code>、<code>.tar.gz</code>或<code>.tar.bz2</code>格式</p>
+<p>解压缩的话常用组合参数：<code>-zxvf</code>，或<code>jxvf</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>创建压缩文件</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>解开压缩文件</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>查看压缩包内有哪些文件</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>用Gzip压缩或解压</td>
+</tr>
+<tr>
+<td>-j</td>
+<td>用bzip2压缩或解压</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示压缩或解压的过程</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>目标文件名</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>保留原始的权限与属性</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>使用绝对路径来压缩</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>指定解压到的目录</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<p>将<code>/root/jdk-8u161-linux-x64.tar.gz</code>解压至指定的目录<code>./</code>下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf /root/jdk-8u161-linux-x64.tar.gz -C ./</span><br></pre></td></tr></table></figure>
+<hr>
+<p>CodeSheep（程序羊）制作的常用Linux速查备忘手册，可以参照学习。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/files/Linux%E9%80%9F%E6%9F%A5%E5%A4%87%E5%BF%98%E6%89%8B%E5%86%8C.pdf">点我就行</a></p>
+<h2 id="3-管道符、重定向与环境变量"><a href="#3-管道符、重定向与环境变量" class="headerlink" title="3 管道符、重定向与环境变量"></a>3 管道符、重定向与环境变量</h2><p>与文件读写操作有关的重定向技术的5种模式：</p>
+<ul>
+<li>标准覆盖输出重定向</li>
+<li>标准追加输出重定向</li>
+<li>错误覆盖输出重定向</li>
+<li>错误追加输出重定向</li>
+<li>输入重定向</li>
+</ul>
+<h3 id="3-1-输入输出重定向"><a href="#3-1-输入输出重定向" class="headerlink" title="3.1 输入输出重定向"></a>3.1 输入输出重定向</h3><h4 id="3-1-1-简介"><a href="#3-1-1-简介" class="headerlink" title="3.1.1 简介"></a>3.1.1 简介</h4><p><strong>输入重定向是指把文件导入到命令</strong>中，而<strong>输出重定向则是指把原本要输出到屏幕的数据信息写入到指定文件中</strong>。相较于输入重定向，使用<strong>输出重定向的频率更高</strong>，所以又将输出重定向分为了标准输出重定向和错误输出重定向两种不同的技术，以及覆盖写入与追加写入两种模式。</p>
+<ul>
+<li><strong>标准输入重定向（STDIN，文件描述符为0）</strong>：默认从键盘输入，也可从其他文件或命令中输入。</li>
+<li><strong>标准输出重定向（STDOUT，文件描述符为1）</strong>：默认输出到屏幕。</li>
+<li><strong>错误输出重定向（STDERR，文件描述符为2）</strong>：默认输出到屏幕。</li>
+</ul>
+<h4 id="3-1-2-参数"><a href="#3-1-2-参数" class="headerlink" title="3.1.2 参数"></a>3.1.2 参数</h4><p>输入重定向：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令 &lt; 文件</td>
+<td>将文件作为命令的标准输入</td>
+</tr>
+<tr>
+<td>命令 &lt;&lt; 分界符</td>
+<td>从标准输入中读入，直到遇见分界符才停止</td>
+</tr>
+<tr>
+<td>命令 &lt; 文件1 &gt; 文件2</td>
+<td>将文件1作为命令的标准输入并将标准输出到文件2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>输出重定向：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令 &gt; 文件</td>
+<td>将标准输出重定向到一个文件中（覆盖）</td>
+</tr>
+<tr>
+<td>命令 2&gt; 文件</td>
+<td>将错误输出重定向到一个文件中（覆盖）</td>
+</tr>
+<tr>
+<td>命令 &gt;&gt; 文件</td>
+<td>将标准输出重定向到一个文件中（追加）</td>
+</tr>
+<tr>
+<td>命令 2&gt;&gt; 文件</td>
+<td>将错误输出重定向到一个文件中（追加）</td>
+</tr>
+<tr>
+<td>命令 &gt;&gt; 文件 2&gt;&amp;1 或 命令 &amp;&gt;&gt; 文件</td>
+<td>将标准输出与错误输出共同写入到文件中（追加）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="3-1-3-示例"><a href="#3-1-3-示例" class="headerlink" title="3.1.3 示例"></a>3.1.3 示例</h4><ul>
+<li>通过标准输出重定向将man bash命令原本要输出到屏幕的信息写入到文件readme.txt中，然后显示readme.txt文件中的内容</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930171225616.png" alt="image-20220930171225616"></p>
+<ul>
+<li>通过覆盖写入模式向readme.txt文件写入数据</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930171339779.png" alt="image-20220930171339779"></p>
+<ul>
+<li>再通过追加写入模式向readme.txt文件写入一次数据</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930171418793.png" alt="image-20220930171418793"></p>
+<h3 id="3-2-管道命令符"><a href="#3-2-管道命令符" class="headerlink" title="3.2 管道命令符"></a>3.2 管道命令符</h3><p>管道命令符的作用可以用一句话概括为“<strong>把前一个命令原本要输出到屏幕的信息当作后一个命令的标准输入</strong>”。执行格式为<code>命令A | 命令B | 命令C ...</code>。</p>
+<blockquote>
+<p>示例1</p>
+</blockquote>
+<p>找出被限制登录用户的个数。</p>
+<p>基础指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep /sbin/nologin /etc/passwd</span><br><span class="line">wc –l</span><br></pre></td></tr></table></figure>
+<p>现在要做的就是把grep搜索命令的输出值传递给wc统计命令，即把原本要输出到屏幕的用户信息列表再交给wc命令作进一步的加工，因此只需要把管道符放到两条命令之间即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep /sbin/nologin /etc/passwd | wc -l <span class="comment"># 20</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例2</p>
+</blockquote>
+<p>用翻页的形式查看/etc目录中的文件列表及属性信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /etc/ | more</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例3</p>
+</blockquote>
+<p>搜索与bash有关的进程信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep bash</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930172250098.png" alt="image-20220930172250098"></p>
+<h3 id="3-3-命令行的通配符"><a href="#3-3-命令行的通配符" class="headerlink" title="3.3 命令行的通配符"></a>3.3 命令行的通配符</h3><p>通配符就是通用的匹配信息的符号，Linux系统中的通配符及含义如下。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>任意字符</td>
+</tr>
+<tr>
+<td>?</td>
+<td>单个任意字符</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>单个小写字母</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>单个大写字母</td>
+</tr>
+<tr>
+<td>[a-Z]</td>
+<td>单个字母</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>单个数字</td>
+</tr>
+<tr>
+<td>[[:alpha:]]</td>
+<td>任意字母</td>
+</tr>
+<tr>
+<td>[[:upper:]]</td>
+<td>任意大写字母</td>
+</tr>
+<tr>
+<td>[[:lower:]]</td>
+<td>任意小写字母</td>
+</tr>
+<tr>
+<td>[[:digit:]]</td>
+<td>所有数字</td>
+</tr>
+<tr>
+<td>[[:alnum:]]</td>
+<td>任意字母加数字</td>
+</tr>
+<tr>
+<td>[[:punct:]]</td>
+<td>标点符号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>示例1</p>
+</blockquote>
+<p>匹配所有在/dev目录中且以tty开头的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /dev/tty*</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930173142566.png" alt="image-20220930173142566"></p>
+<blockquote>
+<p>示例2</p>
+</blockquote>
+<p>匹配0～9之间的单个数字：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /dev/sda[0-9]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例3</p>
+</blockquote>
+<p>搜索/etc/目录中所有以.conf结尾的配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /etc/*.conf</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-环境变量"><a href="#3-4-环境变量" class="headerlink" title="3.4 环境变量"></a>3.4 环境变量</h3><p>在Linux系统中，变量名称一般都是<strong>大写</strong>的，命令则都是小写的，这是一种约定俗成的规范。Linux系统中的环境变量是用来定义系统运行环境的一些参数，比如每个用户不同的家目录、邮件存放位置等。<strong>可以直接通过变量名称来提取到对应的变量值</strong>。</p>
+<p>可使用<code>env</code>命令查看环境变量：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930174627715.png" alt="image-20220930174627715"></p>
+<p>Linux中最重要的10个环境变量：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>变量名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HOME</td>
+<td>用户的主目录（即家目录）</td>
+</tr>
+<tr>
+<td>SHELL</td>
+<td>用户在使用的Shell解释器名称</td>
+</tr>
+<tr>
+<td>HISTSIZE</td>
+<td>输出的历史命令记录条数</td>
+</tr>
+<tr>
+<td>HISTFILESIZE</td>
+<td>保存的历史命令记录条数</td>
+</tr>
+<tr>
+<td>MAIL</td>
+<td>邮件保存路径</td>
+</tr>
+<tr>
+<td>LANG</td>
+<td>系统语言、语系名称</td>
+</tr>
+<tr>
+<td>RANDOM</td>
+<td>生成一个随机数字</td>
+</tr>
+<tr>
+<td>PS1</td>
+<td>Bash解释器的提示符</td>
+</tr>
+<tr>
+<td>PATH</td>
+<td>定义解释器搜索用户执行命令的路径</td>
+</tr>
+<tr>
+<td>EDITOR</td>
+<td>用户默认的文本编辑器</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>Linux执行命令的过程</p>
+</blockquote>
+<p><strong>第1步</strong>：判断用户是否以绝对路径或相对路径的方式输入命令（如/bin/ls），如果是绝对路径则直接执行，否则进入第2步继续判断。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930174833881.png" alt="image-20220930174833881"></p>
+<p><strong>第2步</strong>：Linux系统检查用户输入的命令是否为“别名命令”，即用一个自定义的命令名称来替换原本的命令名称。之前在使用rm命令删除文件时，Linux系统都会要求用户确认是否执行删除操作，其实这就是Linux系统为了防止用户误删除文件而特意设置的rm别名命令—<code>rm -i</code></p>
+<p><strong>第3步</strong>：Bash解释器判断用户输入的是内部命令还是外部命令。内部命令是解释器内部的指令，会被直接执行；而用户在绝大部分时间输入的是外部命令，这些命令交由步骤4继续处理。可以使用<code>type 命令名称</code>来判断用户输入的命令是内部命令还是外部命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-24-5-centos ~]<span class="comment"># type echo</span></span><br><span class="line"><span class="built_in">echo</span> is a shell <span class="built_in">builtin</span> <span class="comment"># 内部命令，直接执行</span></span><br><span class="line">[root@VM-24-5-centos ~]<span class="comment"># type uptime</span></span><br><span class="line">uptime is /usr/bin/uptime <span class="comment"># 外部命令，需要到PATH环境变量中寻找该命令</span></span><br><span class="line">[root@VM-24-5-centos ~]<span class="comment"># type ls</span></span><br><span class="line">ls is aliased to `ls --color=auto<span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>第4步</strong>：系统在多个路径中查找用户输入的命令文件，而定义这些路径的变量叫作<code>PATH</code>，可以简单地把它理解成是“解释器的小助手”，作用是告诉Bash解释器待执行的命令可能存放的位置，然后Bash解释器就会在这些位置中逐个查找。PATH是由多个路径值组成的变量，<strong>每个路径值之间用冒号间隔</strong>，对这些路径的增加和删除操作将影响到Bash解释器对Linux命令的查找。</p>
+<p>PATH变量：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930175138667.png" alt="image-20220930175138667"></p>
+<h2 id="4-Vim编辑器与Shell命令脚本"><a href="#4-Vim编辑器与Shell命令脚本" class="headerlink" title="4 Vim编辑器与Shell命令脚本"></a>4 Vim编辑器与Shell命令脚本</h2><h3 id="4-1-Vim文本编辑器"><a href="#4-1-Vim文本编辑器" class="headerlink" title="4.1 Vim文本编辑器"></a>4.1 Vim文本编辑器</h3><h4 id="4-1-1-简介"><a href="#4-1-1-简介" class="headerlink" title="4.1.1 简介"></a>4.1.1 简介</h4><p>Vim的发布最早可以追溯到1991年，英文全称为Vi Improved。它也是Vi编辑器的提升版本，其中最大的改进当属添加了代码着色功能，在某些编程场景下还能自动修正错误代码。</p>
+<p>Vim编辑器中设置了3种模式：</p>
+<ul>
+<li><strong>命令模式</strong>：控制光标移动，可对文本进行复制、粘贴、删除和查找等工作。</li>
+<li><strong>输入模式</strong>：正常的文本录入。</li>
+<li><strong>末行模式</strong>：保存或退出文档，以及设置编辑环境。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20220930175724304.png" alt="image-20220930175724304"></p>
+<p>在每次运行Vim编辑器时，默认进入命令模式，此时需要先切换到输入模式后再进行文档编写工作。而每次在编写完文档后需要先返回命令模式，然后再进入末行模式，执行文档的保存或退出操作。Vim编辑器中内置的命令有成百上千种用法。</p>
+<p>命令模式中最常用的一些命令：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dd</td>
+<td>删除（剪切）光标所在整行</td>
+</tr>
+<tr>
+<td>5dd</td>
+<td>删除（剪切）从光标处开始的5行</td>
+</tr>
+<tr>
+<td>yy</td>
+<td>复制光标所在整行</td>
+</tr>
+<tr>
+<td>5yy</td>
+<td>复制从光标处开始的5行</td>
+</tr>
+<tr>
+<td>n</td>
+<td>显示搜索命令定位到的下一个字符串</td>
+</tr>
+<tr>
+<td>N</td>
+<td>显示搜索命令定位到的上一个字符串</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤销上一步的操作</td>
+</tr>
+<tr>
+<td>p</td>
+<td>将之前删除（dd）或复制（yy）过的数据粘贴到光标后面</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>末行模式主要用于保存或退出文件，以及设置Vim编辑器的工作环境，还可以让用户执行外部的Linux命令或跳转到所编写文档的特定行数。要想切换到末行模式，在命令模式中输入一个冒号就可以了。</p>
+<p>末行模式中最常用的一些命令：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:w</td>
+<td>保存</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>强制退出（放弃对文档的修改内容）</td>
+</tr>
+<tr>
+<td>:wq!</td>
+<td>强制保存退出</td>
+</tr>
+<tr>
+<td>:set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>:set nonu</td>
+<td>不显示行号</td>
+</tr>
+<tr>
+<td>:命令</td>
+<td>执行该命令</td>
+</tr>
+<tr>
+<td>:整数</td>
+<td>跳转到该行</td>
+</tr>
+<tr>
+<td>:s/one/two</td>
+<td>将当前光标所在行的第一个one替换成two</td>
+</tr>
+<tr>
+<td>:s/one/two/g</td>
+<td>将当前光标所在行的所有one替换成two</td>
+</tr>
+<tr>
+<td>:%s/one/two/g</td>
+<td>将全文中的所有one替换成two</td>
+</tr>
+<tr>
+<td>?字符串</td>
+<td>在文本中从下至上搜索该字符串</td>
+</tr>
+<tr>
+<td>/字符串</td>
+<td>在文本中从上至下搜索该字符串</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="4-1-2-编写简单的文档"><a href="#4-1-2-编写简单的文档" class="headerlink" title="4.1.2 编写简单的文档"></a>4.1.2 编写简单的文档</h4><ul>
+<li>新建文档<code>test.txt</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch test.txt</span><br></pre></td></tr></table></figure>
+<p>或者直接使用：如果存在该文档，则是打开它。如果不存在，则是创建一个临时的输入文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim test.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打开文档后，默认进入的是Vim编辑器的命令模式。<ul>
+<li>可以分别使用a、i、o三个键从命令模式切换到输入模式。</li>
+<li>a键与i键分别是在光标后面一位和光标当前位置切换到输入模式</li>
+<li>o键是在光标的下面再创建一个空行</li>
+</ul>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20221004092334877.png" alt="image-20221004092334877"></p>
+<ul>
+<li>敲击键盘的Esc键从输入模式返回命令模式。再输入<code>:wq!</code>切换到末行模式才能完成保存退出操作</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20221004092452505.png" alt="image-20221004092452505"></p>
+<h4 id="4-1-3-配置主机名称"><a href="#4-1-3-配置主机名称" class="headerlink" title="4.1.3 配置主机名称"></a>4.1.3 配置主机名称</h4><p>在Linux系统中，主机名大多保存在<code>/etc/hostname</code>文件中，接下来将<code>/etc/hostname</code>配置文件的内容修改为<code>HongyiZeng</code>，步骤如下。</p>
+<p><strong>第1步</strong>：使用Vim编辑器修改<code>/etc/hostname</code>主机名称文件。</p>
+<p><strong>第2步</strong>：把原始主机名称删除后追加<code>HongyiZeng</code>。注意，使用Vim编辑器修改主机名称文件后，要在末行模式下执行<code>:wq!</code>命令才能保存并退出文档。</p>
+<p><strong>第3步</strong>：保存并退出文档，然后使用<code>hostname</code>命令检查是否修改成功。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20221004093235145.png" alt="image-20221004093235145"></p>
+<h4 id="4-1-4-配置网卡信息"><a href="#4-1-4-配置网卡信息" class="headerlink" title="4.1.4 配置网卡信息"></a>4.1.4 配置网卡信息</h4><p>在Linux系统中，一切都是文件，因此配置网络服务的工作其实就是在编辑网卡配置文件，在<code>/etc/sysconfig/network-scripts</code>目录中存放着网卡的配置文件。</p>
+<p>在RHEL 5、RHEL 6中，网卡配置文件的前缀为<code>eth</code>，第1块网卡为eth0，第2块网卡为eth1；以此类推。</p>
+<p>在RHEL 7中，网卡配置文件的前缀则以<code>ifcfg</code>开始，再加上网卡名称共同组成了网卡配置文件的名字，例如<code>ifcfg-eno16777736</code>。</p>
+<p>在RHEL 8中，网卡配置文件的前缀依然为<code>ifcfg</code>，区别是网卡名称改成了类似于ens160的样子，不过好在除了文件名发生变化外，网卡参数没有其他大的区别。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20221004093719744.png" alt="image-20221004093719744"></p>
+<h3 id="4-2-编写Shell脚本"><a href="#4-2-编写Shell脚本" class="headerlink" title="4.2 编写Shell脚本"></a>4.2 编写Shell脚本</h3><h4 id="4-2-1-简介"><a href="#4-2-1-简介" class="headerlink" title="4.2.1 简介"></a>4.2.1 简介</h4><p>可以将Shell终端解释器当作人与计算机硬件之间的“翻译官”，它作为用户与Linux系统内部的通信媒介，除了能够支持各种变量与参数外，还提供了诸如循环、分支等高级编程语言才有的控制结构特性。Shell脚本命令的工作方式有下面两种。</p>
+<ul>
+<li><strong>交互式（Interactive）</strong>：用户每输入一条命令就立即执行。</li>
+<li><strong>批处理（Batch）</strong>：由用户事先编写好一个完整的Shell脚本，Shell会一次性执行脚本中诸多的命令。</li>
+</ul>
+<p>在Shell脚本中不仅会用到前面学习过的很多Linux命令以及正则表达式、管道符、数据流重定向等语法规则，还需要把内部功能模块化后通过逻辑语句进行处理，最终形成日常所见的Shell脚本。</p>
+<p>通过查看SHELL变量可以发现，当前系统已经<strong>默认使用Bash</strong>作为命令行终端解释器了：（Bash是Shell的子集）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@HongyiZeng network-scripts]<span class="comment"># echo $SHELL</span></span><br><span class="line">/bin/bash</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-2-编写简单的脚本"><a href="#4-2-2-编写简单的脚本" class="headerlink" title="4.2.2 编写简单的脚本"></a>4.2.2 编写简单的脚本</h4><p>Shell脚本文件的名称可以任意，但为了避免被误以为是普通文件，建议将<code>.sh</code>后缀加上，以表示是一个脚本文件。</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<ul>
+<li>需求：查看当前所在工作路径并列出当前目录下所有的文件及属性信息</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20221004095917312.png" alt="image-20221004095917312"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">An example of shell</span></span><br><span class="line">pwd</span><br><span class="line">ls -al</span><br></pre></td></tr></table></figure>
+<p>第一行的脚本声明（<code>#!</code>）用来告诉系统使用哪种Shell解释器来执行该脚本；</p>
+<p>第二行的注释信息（<code>#</code>）是对脚本功能和某些命令的介绍信息；</p>
+<p>第三、四行的可执行语句就是我们平时执行的Linux命令了。</p>
+<ul>
+<li>执行shell脚本</li>
+</ul>
+<p>方式一：用Bash解释器命令直接运行Shell脚本文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="comment"># bash example.sh</span></span><br><span class="line">/root</span><br><span class="line">total 60</span><br><span class="line">dr-xr-x---. 15 root root  4096 Oct 12 00:41 .</span><br><span class="line">dr-xr-xr-x. 17 root root   224 Jul 21 05:04 ..</span><br><span class="line">-rw-------.  1 root root  1407 Jul 21 05:09 anaconda-ks.cfg</span><br><span class="line">-rw-------.  1 root root   335 Jul 24 06:33 .bash_history</span><br><span class="line">-rw-r--r--.  1 root root    18 Aug 13  2018 .bash_logout</span><br><span class="line">-rw-r--r--.  1 root root   176 Aug 13  2018 .bash_profile</span><br><span class="line">………………省略部分输出信息………………</span><br></pre></td></tr></table></figure>
+<p>方式二：输入完整路径的方式来执行，但默认会因为权限不足而提示报错信息，此时只需要为脚本文件增加执行权限即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="comment"># ./example.sh</span></span><br><span class="line">bash: ./Example.sh: Permission denied</span><br><span class="line">[root@linuxprobe ~]<span class="comment"># chmod u+x example.sh</span></span><br><span class="line">[root@linuxprobe ~]<span class="comment"># ./example.sh</span></span><br><span class="line">/root</span><br><span class="line">total 60</span><br><span class="line">dr-xr-x---. 15 root root  4096 Oct 12 00:41 .</span><br><span class="line">dr-xr-xr-x. 17 root root   224 Jul 21 05:04 ..</span><br><span class="line">-rw-------.  1 root root  1407 Jul 21 05:09 anaconda-ks.cfg</span><br><span class="line">-rw-------.  1 root root   335 Jul 24 06:33 .bash_history</span><br><span class="line">-rw-r--r--.  1 root root    18 Aug 13  2018 .bash_logout</span><br><span class="line">-rw-r--r--.  1 root root   176 Aug 13  2018 .bash_profile</span><br><span class="line">………………省略部分输出信息………………</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-3-接收用户参数"><a href="#4-2-3-接收用户参数" class="headerlink" title="4.2.3 接收用户参数"></a>4.2.3 接收用户参数</h4><p>Linux系统中的Shell脚本语言内设了用于接收命令参数的变量，变量之间使用空格间隔。</p>
+<ul>
+<li><code>$0</code>对应的是当前Shell脚本程序的名称</li>
+<li><code>$#</code>对应的是总共有几个参数</li>
+<li><code>$*</code>对应的是所有位置的参数值</li>
+<li><code>$?</code>对应的是显示上一次命令的执行返回值</li>
+<li><code>$1、$2、$3</code>……分别对应着第<em>N</em>个位置的参数值</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20221004100829743.png" alt="image-20221004100829743"></p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@HongyiZeng ~]<span class="comment"># vim example.sh </span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;当前脚本名称为<span class="variable">$0</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;总共有<span class="variable">$#</span>个参数，分别是$*&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;第1个参数是<span class="variable">$1</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>执行该脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@HongyiZeng ~]<span class="comment"># bash example.sh one two</span></span><br><span class="line">当前脚本名称为example.sh</span><br><span class="line">总共有2个参数，分别是one two</span><br><span class="line">第1个参数是one</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-4-判断用户参数"><a href="#4-2-4-判断用户参数" class="headerlink" title="4.2.4 判断用户参数"></a>4.2.4 判断用户参数</h4><p>Shell脚本中的条件测试语法可以判断表达式是否成立，若条件成立则返回数字0，否则便返回非零值。切记，条件表达式两边均应有一个空格。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img18/image-20221004101230874.png" alt="image-20221004101230874"></p>
+<p>按照测试对象来划分，条件测试语句可以分为4种：</p>
+<ul>
+<li>文件测试语句</li>
+<li>逻辑测试语句</li>
+<li>整数值比较语句</li>
+<li>字符串比较语句</li>
+</ul>
+<h5 id="①-文件测试"><a href="#①-文件测试" class="headerlink" title="① 文件测试"></a>① 文件测试</h5><p>文件测试即使用指定条件来判断文件是否存在或权限是否满足等情况的运算符，具体参数如下所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-d</td>
+<td>测试文件是否为目录类型</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>测试文件是否存在</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>判断是否为一般文件</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>测试当前用户是否有权限读取</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>测试当前用户是否有权限写入</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>测试当前用户是否有权限执行</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:zenghongyi1@google.com">Kisugi Takumi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kisugitakumi.github.io/2022/09/29/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://kisugitakumi.github.io/2022/09/29/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kisugitakumi.github.io" target="_blank">Kisugi Takumi</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post_share"><div class="social-share" data-image="/img/linux.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/09/18/%E5%90%9B%E3%81%AE%E8%86%B5%E8%87%93%E3%82%92%E3%81%9F%E3%81%B9%E3%81%9F%E3%81%84/"><img class="next-cover" src="/img/suizouwotabetai.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">君の膵臓をたべたい</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/09/IDEA%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="IDEA常用快捷键"><img class="cover" src="/img/idea.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-09</div><div class="title">IDEA常用快捷键</div></div></a></div><div><a href="/2020/12/01/Java%E8%A1%A5%E5%85%85/" title="Java补充知识"><img class="cover" src="/img/juc.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-01</div><div class="title">Java补充知识</div></div></a></div><div><a href="/2020/05/20/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" title="LeetCode刷题笔记"><img class="cover" src="/img/leetcode.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-20</div><div class="title">LeetCode刷题笔记</div></div></a></div><div><a href="/2021/03/20/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Nginx学习笔记"><img class="cover" src="/img/nginx.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-20</div><div class="title">Nginx学习笔记</div></div></a></div><div><a href="/2021/09/08/JavaWeb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="JavaWeb学习笔记"><img class="cover" src="/img/javaweb.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-08</div><div class="title">JavaWeb学习笔记</div></div></a></div><div><a href="/2022/04/12/Java%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Java新特性学习笔记"><img class="cover" src="/img/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-12</div><div class="title">Java新特性学习笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">Linux学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF"><span class="toc-text">1.1 开源许可</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%B8%B8%E8%A7%81%E7%9A%84Linux%E7%B3%BB%E7%BB%9F"><span class="toc-text">1.2 常见的Linux系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="toc-text">2 基础命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-shell%E5%92%8Cbash"><span class="toc-text">2.1 shell和bash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="toc-text">2.2 命令格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%B8%B8%E7%94%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="toc-text">2.3 常用系统工作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-echo"><span class="toc-text">2.3.1 echo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-date"><span class="toc-text">2.3.2 date</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-reboot"><span class="toc-text">2.3.3 reboot</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-poweroff"><span class="toc-text">2.3.4 poweroff</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-5-wget"><span class="toc-text">2.3.5 wget</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-6-ps"><span class="toc-text">2.3.6 ps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-7-pstree"><span class="toc-text">2.3.7 pstree</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-8-top"><span class="toc-text">2.3.8 top</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-9-nice"><span class="toc-text">2.3.9 nice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-10-pidof"><span class="toc-text">2.3.10 pidof</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-11-kill"><span class="toc-text">2.3.11 kill</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E5%91%BD%E4%BB%A4"><span class="toc-text">2.4 系统状态检测命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-ifconfig"><span class="toc-text">2.4.1 ifconfig</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-uptime"><span class="toc-text">2.4.2 uptime</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-free"><span class="toc-text">2.4.3 free</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-4-last"><span class="toc-text">2.4.4 last</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-5-netstat"><span class="toc-text">2.4.5 netstat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-6-history"><span class="toc-text">2.4.6 history</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-7-sosreport"><span class="toc-text">2.4.7 sosreport</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%9F%A5%E6%89%BE%E5%AE%9A%E4%BD%8D%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4"><span class="toc-text">2.5 查找定位文件命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1-pwd"><span class="toc-text">2.5.1 pwd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2-cd"><span class="toc-text">2.5.2 cd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-3-ls"><span class="toc-text">2.5.3 ls</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-4-find"><span class="toc-text">2.5.4 find</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91%E5%91%BD%E4%BB%A4"><span class="toc-text">2.6 文本文件编辑命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-1-cat"><span class="toc-text">2.6.1 cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-2-more"><span class="toc-text">2.6.2 more</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-3-head"><span class="toc-text">2.6.3 head</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-4-tail"><span class="toc-text">2.6.4 tail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-5-grep"><span class="toc-text">2.6.5 grep</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">2.7 文件目录管理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-1-touch"><span class="toc-text">2.7.1 touch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-2-mkdir"><span class="toc-text">2.7.2 mkdir</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-3-cp"><span class="toc-text">2.7.3 cp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-4-mv"><span class="toc-text">2.7.4 mv</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-5-rm"><span class="toc-text">2.7.5 rm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-6-file"><span class="toc-text">2.7.6 file</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-7-tar"><span class="toc-text">2.7.7 tar</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%AE%A1%E9%81%93%E7%AC%A6%E3%80%81%E9%87%8D%E5%AE%9A%E5%90%91%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">3 管道符、重定向与环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">3.1 输入输出重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">3.1.1 简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E5%8F%82%E6%95%B0"><span class="toc-text">3.1.2 参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E7%A4%BA%E4%BE%8B"><span class="toc-text">3.1.3 示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4%E7%AC%A6"><span class="toc-text">3.2 管道命令符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-text">3.3 命令行的通配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">3.4 环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%8EShell%E5%91%BD%E4%BB%A4%E8%84%9A%E6%9C%AC"><span class="toc-text">4 Vim编辑器与Shell命令脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-text">4.1 Vim文本编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">4.1.1 简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E6%96%87%E6%A1%A3"><span class="toc-text">4.1.2 编写简单的文档</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-3-%E9%85%8D%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%A7%B0"><span class="toc-text">4.1.3 配置主机名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-4-%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E4%BF%A1%E6%81%AF"><span class="toc-text">4.1.4 配置网卡信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E7%BC%96%E5%86%99Shell%E8%84%9A%E6%9C%AC"><span class="toc-text">4.2 编写Shell脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">4.2.1 简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="toc-text">4.2.2 编写简单的脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-%E6%8E%A5%E6%94%B6%E7%94%A8%E6%88%B7%E5%8F%82%E6%95%B0"><span class="toc-text">4.2.3 接收用户参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E5%8F%82%E6%95%B0"><span class="toc-text">4.2.4 判断用户参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%91%A0-%E6%96%87%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="toc-text">① 文件测试</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Kisugi Takumi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的个人博客!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
