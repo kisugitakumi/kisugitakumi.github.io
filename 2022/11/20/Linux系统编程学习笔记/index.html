@@ -1,0 +1,777 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Linux系统编程学习笔记 | Kisugi Takumi</title><meta name="keywords" content="C语言学习,Linux,Linux系统编程"><meta name="author" content="Kisugi Takumi,zenghongyi1@google.com"><meta name="copyright" content="Kisugi Takumi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux系统编程学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统编程学习笔记">
+<meta property="og:url" content="https://kisugitakumi.github.io/2022/11/20/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Kisugi Takumi">
+<meta property="og:description" content="Linux系统编程学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisugitakumi.github.io/img/linux.png">
+<meta property="article:published_time" content="2022-11-20T06:46:25.000Z">
+<meta property="article:modified_time" content="2022-11-28T07:34:05.584Z">
+<meta property="article:author" content="Kisugi Takumi">
+<meta property="article:tag" content="C语言学习">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Linux系统编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisugitakumi.github.io/img/linux.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://kisugitakumi.github.io/2022/11/20/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Kisugi Takumi","link":"链接: ","source":"来源: Kisugi Takumi","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux系统编程学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-28 15:34:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">68</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> 我的豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fab fa-steam-square"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/create/"><i class="fa-fw fas fa-user-edit"></i><span> 我的创作</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-kiss-wink-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Kisugi Takumi</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-brain"></i><span> 我的豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fab fa-steam-square"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/create/"><i class="fa-fw fas fa-user-edit"></i><span> 我的创作</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-kiss-wink-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Linux系统编程学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-20T06:46:25.000Z" title="发表于 2022-11-20 14:46:25">2022-11-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-28T07:34:05.584Z" title="更新于 2022-11-28 15:34:05">2022-11-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/">C语言学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux系统编程学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="Linux系统编程学习笔记"><a href="#Linux系统编程学习笔记" class="headerlink" title="Linux系统编程学习笔记"></a>Linux系统编程学习笔记</h1><p>学习时间：2022年11月20日</p>
+<p>学习来源：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yJ411S7r6?">Linux系统编程（李慧琴）</a></p>
+<p>参考资料：Unix环境高级编程，Linux系统编程</p>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><h3 id="1-1-环境"><a href="#1-1-环境" class="headerlink" title="1.1 环境"></a>1.1 环境</h3><p>平台：Centos7.6</p>
+<p>工具：vim，gcc，make</p>
+<h3 id="1-2-GCC"><a href="#1-2-GCC" class="headerlink" title="1.2 GCC"></a>1.2 GCC</h3><p>Linux系统下的GCC（<code>GNU Compiler Collection</code>）是GNU推出的功能强大、性能优越的多平台编译器，是GNU的代表作品之一。gcc是可以在多种硬体平台上编译出可执行程序的超级编译器，其执行效率与一般的编译器相比平均效率要高20%~30%。</p>
+<p>GCC编译器能将C、C++语言源程序、汇程式化序和目标程序编译、链接成可执行文件，如果没有给出可执行文件的名字，gcc将生成一个名为<code>a.out</code>的文件。</p>
+<p>GCC编译器编译C源文件为可执行文件的步骤：</p>
+<ul>
+<li>C源文件—-&gt;预处理<code>.i</code>—-&gt;编译<code>.o</code>—-&gt;汇编<code>.s</code>—-&gt;链接—-&gt;可执行文件</li>
+</ul>
+<blockquote>
+<p>gcc命令参数</p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>-c</code></td>
+<td style="text-align:left">对文件进行预处理、编译和汇编，生成obj文件</td>
+<td style="text-align:left"><code>gcc -c hello.c</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-S</code></td>
+<td style="text-align:left">只进行预处理和编译，生成汇编代码</td>
+<td style="text-align:left"><code>gcc -S hello.c</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-E</code></td>
+<td style="text-align:left">只进行预处理，这个选项不生成文件，可以使用重定向或者<code>-o</code>选项使其生成一个文件</td>
+<td style="text-align:left"><code>gcc -E hello.c &gt; hello.i</code>或者<code>gcc -E hello.c -o hello.i</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-o</code></td>
+<td style="text-align:left">指定目标的名称，默认为a.out</td>
+<td style="text-align:left"><code>gcc -o hello hello.c</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>过程演示</p>
+</blockquote>
+<p>例如源代码<code>main.c</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>预编译：这个过程处理宏定义和include，去除注释，不会对语法进行检查。可以看到预编译后，源文件的代码从6行扩展了很多行，生成<code>main.i</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -E main.c &gt; main.i <span class="comment"># 或者 gcc -E main.c -o main.i</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 只展示了一部分</span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">ftrylockfile</span> <span class="params">(FILE *__stream)</span> __<span class="title">attribute__</span> <span class="params">((__nothrow__ , __leaf__))</span> </span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">funlockfile</span> <span class="params">(FILE *__stream)</span> __<span class="title">attribute__</span> <span class="params">((__nothrow__ , __leaf__))</span></span>;</span><br><span class="line"># <span class="number">943</span> <span class="string">&quot;/usr/include/stdio.h&quot;</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"># <span class="number">2</span> <span class="string">&quot;main.c&quot;</span> <span class="number">2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译：这个阶段，检查语法，生成<strong>汇编</strong>代码<code>main.s</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S main.c -o main.s</span><br></pre></td></tr></table></figure>
+<p><code>main.s</code>的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">        .file   &quot;main.c&quot;</span><br><span class="line">        .section        .rodata</span><br><span class="line">.LC0:</span><br><span class="line">        .string &quot;Hello World!&quot;</span><br><span class="line">        .text</span><br><span class="line">        .globl  main</span><br><span class="line">        .type   main, @function</span><br><span class="line">main:</span><br><span class="line">.LFB0:</span><br><span class="line">        .cfi_startproc</span><br><span class="line">        pushq   %rbp</span><br><span class="line">        .cfi_def_cfa_offset 16</span><br><span class="line">        .cfi_offset 6, -16</span><br><span class="line">        movq    %rsp, %rbp</span><br><span class="line">        .cfi_def_cfa_register 6</span><br><span class="line">        movl    $.LC0, %edi</span><br><span class="line">        call    puts</span><br><span class="line">        movl    $0, %eax</span><br><span class="line">        popq    %rbp</span><br><span class="line">        .cfi_def_cfa 7, 8</span><br><span class="line">        ret</span><br><span class="line">        .cfi_endproc</span><br><span class="line">.LFE0:</span><br><span class="line">        .size   main, .-main</span><br><span class="line">        .ident  &quot;GCC: (GNU) 4.8.5 20150623 (Red Hat 4.8.5-44)&quot;</span><br><span class="line">        .section        .note.GNU-stack,&quot;&quot;,@progbits</span><br></pre></td></tr></table></figure>
+<ul>
+<li>汇编：这个阶段，生成目标代码<code>main.o</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c main.s -o main.o</span><br></pre></td></tr></table></figure>
+<ul>
+<li>链接：生成可执行代码<code>main</code>。<ul>
+<li>链接分为两种，一种是静态链接，另外一种是动态链接。</li>
+<li>使用静态链接的好处是，依赖的动态链接库较少，对动态链接库的版本不会很敏感，具有较好的兼容性；缺点是生成的程序比较大。</li>
+<li>使用动态链接的好处是，生成的程序比较小，占用较少的内存。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc main.o -o main</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@HongyiZeng c]<span class="comment"># ./main</span></span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
+<hr>
+<p>一步到位：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc main.c -o</span><br></pre></td></tr></table></figure>
+<p>此时会默认生成一个名为<code>a.out</code>的可执行文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc main.c -o myHello</span><br></pre></td></tr></table></figure>
+<p>此时会生成一个名为<code>myHello</code>的可执行文件</p>
+<h3 id="1-3-make"><a href="#1-3-make" class="headerlink" title="1.3 make"></a>1.3 make</h3><p>make命令是GNU工程化中的一个编译工具。make是依赖于Makefile来编译多个源文件的工具。在Makefile里同样是用gcc（或者别的编译器）来编译程序。</p>
+<p>可以使用以下命令直接生成可执行文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make main</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-makefile"><a href="#1-4-makefile" class="headerlink" title="1.4 makefile"></a>1.4 makefile</h3><p>一个工程中的源文件不计其数，其按类型、功能、模块分别放在若干个目录中，<code>makefile</code>定义了一系列的规则来指定哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至于进行更复杂的功能操作。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img20/image-20221121035110927.png" alt="image-20221121035110927"></p>
+<h4 id="1-4-1-使用gcc的例子"><a href="#1-4-1-使用gcc的例子" class="headerlink" title="1.4.1 使用gcc的例子"></a>1.4.1 使用gcc的例子</h4><ul>
+<li>创建文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch main.c tool1.c tool1.h tool2.c tool2.h</span><br></pre></td></tr></table></figure>
+<p>可以使用<code>vim * -p</code>打开当前目录下的所有文件。<code>-p</code>是打开多个文件的选项。</p>
+<p>在命令模式下，<code>gt</code>切换到下一个标签页，<code>gT</code>切换到上一个标签页。</p>
+<p>退出多个标签时，可加上<code>a</code>，例如<code>:qa</code>或者<code>:wqa</code>等</p>
+<ul>
+<li><code>tool1.h</code>和<code>tool1.c</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TOOL1_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TOOL1_H__</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mytool1</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tool1.h&quot;</span> </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mytool1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;tool1 print...\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>tool2.h</code>和<code>tool2.c</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TOOL2_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TOOL2_H__</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mytool2</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tool2.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mytool2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;tool2 print...\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>main.c</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tool1.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tool2.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    mytool1();</span><br><span class="line">    mytool2();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对所有文件进行编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc *.c</span><br></pre></td></tr></table></figure>
+<p>执行<code>a.out</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@HongyiZeng makefile]<span class="comment"># ./a.out </span></span><br><span class="line">tool1 <span class="built_in">print</span>...</span><br><span class="line">tool2 <span class="built_in">print</span>...</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-2-语法规则"><a href="#1-4-2-语法规则" class="headerlink" title="1.4.2 语法规则"></a>1.4.2 语法规则</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">目标 ... : 依赖 ...</span><br><span class="line">	命令1</span><br><span class="line">	命令2</span><br><span class="line">	. . .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>目标即要生成的文件。如果目标文件的更新时间晚于依赖文件更新时间，则说明依赖文件没有改动，目标文件不需要重新编译。否则会进行重新编译并更新目标文件。默认情况下Makefile的第一个目标为<strong>终极目标</strong>。</li>
+<li>依赖：即目标文件由哪些文件生成。</li>
+<li>命令：即通过执行命令由依赖文件生成目标文件。注意每条命令之前必须有一个tab保持缩进。</li>
+</ul>
+<blockquote>
+<p>代码示例</p>
+</blockquote>
+<ul>
+<li>新建makefile，<code>touch makefile</code></li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">mytool:main.o tool1.o tool2.o</span></span><br><span class="line">    gcc main.o tool1.o tool2.o -o mytool</span><br><span class="line"><span class="section">main.o:main.c</span></span><br><span class="line">    gcc -c main.c -o main.o</span><br><span class="line"><span class="section">tool1.o:tool1.c</span></span><br><span class="line">    gcc -c tool1.c -o tool1.o</span><br><span class="line"><span class="section">tool2.o:tool2.c</span></span><br><span class="line">    gcc -c tool2.c -o tool2.o</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行<code>make</code>即可。</li>
+</ul>
+<hr>
+<p>makefile会监视哪些源文件发生了变化，一旦发生变化，则会在有这个变化文件的编译链上重新编译。</p>
+<ul>
+<li>假设没有变化</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@HongyiZeng makefile]<span class="comment"># make</span></span><br><span class="line">make: `mytool<span class="string">&#x27; is up to date.</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>将<code>tool1.c</code>修改一点，再次make</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@HongyiZeng makefile]<span class="comment"># make</span></span><br><span class="line">gcc -c tool1.c -o tool1.o</span><br><span class="line">gcc main.o tool1.o tool2.o -o mytool</span><br><span class="line">[root@HongyiZeng makefile]<span class="comment"># ./mytool </span></span><br><span class="line">tool1.c is updated...</span><br><span class="line">tool2 <span class="built_in">print</span>...</span><br></pre></td></tr></table></figure>
+<p>发现只有<code>tool1.c</code>影响到的地方被重新编译了，没有发生变化的地方则不会被重新编译。</p>
+<hr>
+<ul>
+<li>代码清理<code>clean</code>：我们可以编译一条属于自己的clean语句，来清理make命令所产生的所有文件，例如：</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">mytool:main.o tool1.o tool2.o</span></span><br><span class="line">    gcc main.o tool1.o tool2.o -o mytool</span><br><span class="line"><span class="section">main.o:main.c</span></span><br><span class="line">    gcc -c main.c -o main.o</span><br><span class="line"><span class="section">tool1.o:tool1.c</span></span><br><span class="line">    gcc -c tool1.c -o tool1.o</span><br><span class="line"><span class="section">tool2.o:tool2.c</span></span><br><span class="line">    gcc -c tool2.c -o tool2.o</span><br><span class="line">    </span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm *.o mytool -rf</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make clean</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li><p>变量：<code>$</code>符号表示取变量的值，当变量名多于一个字符时，使用<code>()</code></p>
+</li>
+<li><p>变量赋值：</p>
+<ul>
+<li><p><code>=</code>：最普通的等号，在Makefile中容易搞错赋值等号，使用 <code>=</code>进行赋值，变量的值是整个Makefile中<strong>最后被指定</strong>的值。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">VIR_A = A</span><br><span class="line">VIR_B = <span class="variable">$(VIR_A)</span> B</span><br><span class="line">VIR_A = AA</span><br></pre></td></tr></table></figure>
+<p>经过上面的赋值后，最后VIR_B的值是AA B，而不是A B，在make时，会把整个Makefile展开，来决定变量的值</p>
+</li>
+<li><p><code>:=</code>：表示直接赋值，赋予当前位置的值。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">VIR_A := A</span><br><span class="line">VIR_B := <span class="variable">$(VIR_A)</span> B</span><br><span class="line">VIR_A := AA</span><br></pre></td></tr></table></figure>
+<p>最后BIR_B的值是A B，即根据当前位置进行赋值。</p>
+</li>
+<li><p><code>?=</code>：表示如果该变量没有被赋值，赋值予等号后面的值。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VIR ?= new_value</span><br></pre></td></tr></table></figure>
+<p>如果VIR在之前没有被赋值，那么VIR的值就为new_value。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">VIR := old_value</span><br><span class="line">VIR ?= new_value</span><br></pre></td></tr></table></figure>
+<p>这种情况下，VIR的值就是old_value</p>
+</li>
+<li><p><code>+=</code>：和平时写代码的理解是一样的，表示将符号后面的值添加到前面的变量上</p>
+</li>
+</ul>
+</li>
+<li><p>预定义变量<code>CC</code>：c编译器的名称，默认值为gcc</p>
+</li>
+</ul>
+<blockquote>
+<p>改造后的makefile</p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">OBJS=main.o tool1.o tool2.o</span><br><span class="line">CFLAGS+=-c -Wall -g <span class="comment"># 编译选项</span></span><br><span class="line"></span><br><span class="line"><span class="section">mytool:<span class="variable">$(OBJS)</span></span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(OBJS)</span> -o mytool</span><br><span class="line"><span class="section">main.o:main.c</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> main.c -o main.o</span><br><span class="line"><span class="section">tool1.o:tool1.c</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> tool1.c -o tool1.o</span><br><span class="line"><span class="section">tool2.o:tool2.c</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> tool2.c -o tool2.o</span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm *.o mytool -rf</span><br></pre></td></tr></table></figure>
+<p><code>$</code>的其他用法：</p>
+<ul>
+<li><code>$^</code> 表示所有的依赖文件</li>
+<li><code>$@</code> 表示生成的目标文件</li>
+<li><code>$&lt;</code> 代表第一个依赖文件</li>
+</ul>
+<blockquote>
+<p>再次改造后的makefile</p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">OBJS=main.o tool1.o tool2.o</span><br><span class="line">CFLAGS+=-c -Wall -g</span><br><span class="line"></span><br><span class="line"><span class="section">mytool:<span class="variable">$(OBJS)</span></span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">main.o:main.c</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">tool1.o:tool1.c</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">tool2.o:tool2.c</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm *.o mytool -rf</span><br></pre></td></tr></table></figure>
+<hr>
+<p>实际上上面的三段代码都有固定的模式，如下：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">xxx.o:xxx.c</span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+<p>相同的部分<code>xxx</code>可以用通配符<code>%</code>代替。可以简化为：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">OBJS=main.o tool1.o tool2.o</span><br><span class="line">CFLAGS+=-c -Wall -g</span><br><span class="line"></span><br><span class="line"><span class="section">mytool:<span class="variable">$(OBJS)</span></span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">%.o:%.c</span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line">    </span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm *.o mytool -rf</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-POSIX"><a href="#1-5-POSIX" class="headerlink" title="1.5 POSIX"></a>1.5 POSIX</h3><p>来源：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/392588996">https://zhuanlan.zhihu.com/p/392588996</a> 侵权必删</p>
+<h4 id="1-5-1-简介"><a href="#1-5-1-简介" class="headerlink" title="1.5.1 简介"></a>1.5.1 简介</h4><p>POSIX：可移植操作系统接口（<code>Portable Operating System Interface of UNIX</code>，缩写为 POSIX ）；</p>
+<p>发布者为电气与电子工程师协会（Institute of Electrical and Electronics Engineers），简称IEEE。</p>
+<p>POSIX是IEEE为要在各种UNIX操作系统上运行的软件而定义的一系列API标准的总称，其正式称呼为IEEE 1003，而国际标准名称为ISO/IEC 9945。</p>
+<h4 id="1-5-2-历史"><a href="#1-5-2-历史" class="headerlink" title="1.5.2 历史"></a>1.5.2 历史</h4><p>POSIX是Unix的标准。</p>
+<p>1974年，贝尔实验室正式对外发布Unix。因为涉及到反垄断等各种原因，加上早期的Unix不够完善，于是贝尔实验室以慷慨的条件向学校提供源代码，所以Unix在大专院校里获得了很多支持并得以持续发展。</p>
+<p>于是出现了好些独立开发的与Unix基本兼容但又不完全兼容的OS，通称Unix-like OS。包括：</p>
+<ol>
+<li>美国加州大学伯克利分校的Unix4.xBSD(Berkeley Software Distribution)。</li>
+<li>贝尔实验室发布的自己的版本，称为System V Unix。</li>
+<li>其他厂商的版本，比如Sun Microsystems的Solaris系统,则是从这些原始的BSD和System V版本中衍生而来。</li>
+</ol>
+<p>20世纪80年代中期，Unix厂商试图通过加入新的、往往不兼容的特性来使它们的程序与众不同。</p>
+<p>为了提高兼容性和应用程序的可移植性，阻止这种趋势， IEEE开始努力标准化Unix的开发，后来由 Richard Stallman命名为<code>Posix</code>。</p>
+<p>这套标准涵盖了很多方面，比如Unix系统调用的C语言接口、shell程序和工具、线程及网络编程。</p>
+<h4 id="1-5-3-可移植性"><a href="#1-5-3-可移植性" class="headerlink" title="1.5.3 可移植性"></a>1.5.3 可移植性</h4><h5 id="①-系统调用和库函数"><a href="#①-系统调用和库函数" class="headerlink" title="① 系统调用和库函数"></a>① 系统调用和库函数</h5><p>Linux下对文件操作有两种方式：<strong>系统调用</strong>（system call）和<strong>库函数调用</strong>（Library functions）。</p>
+<ul>
+<li>系统调用：系统调用是通向操作系统本身的接口，是面向底层硬件的。通过系统调用，可以使得用户态运行的进程与硬件设备(如CPU、磁盘、打印机等)进行交互，是操作系统留给应用程序的一个接口。</li>
+<li>库函数调用：库函数（Library function）是把函数放到库里，供别人使用的一种方式。</li>
+</ul>
+<p>方法是把一些常用到的函数编完放到一个文件里，供不同的人进行调用。一般放在<code>.lib</code>文件中。</p>
+<p>库函数调用则是面向应用开发的，库函数可分为两类：</p>
+<ol>
+<li>一类是C语言标准规定的库函数，</li>
+<li>一类是编译器特定的库函数。</li>
+</ol>
+<p>(由于版权原因，库函数的源代码一般是不可见的，但在头文件中你可以看到它对外的接口)。</p>
+<p><code>glibc</code> 是 Linux 下使用的开源的标准 C 库，它是 GNU 发布的 libc 库，即运行时库。这些基本函数都是被标准化了的，而且这些函数通常都是用汇编直接实现的。</p>
+<p>glibc 为程序员提供丰富的 API（Application Programming Interface），这些API都是遵循POSIX标准的，API的函数名，返回值，参数类型等都必须按照POSIX标准来定义。</p>
+<p><strong>POSIX兼容也就指定这些接口函数兼容，但是并不管API具体如何实现。</strong></p>
+<h5 id="②-区别"><a href="#②-区别" class="headerlink" title="② 区别"></a>② 区别</h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img20/v2-3a61e1a67e92a89bd5a4e5f050ee406f_r.jpg" alt="img"></p>
+<p>如上图所示：</p>
+<ul>
+<li>库函数是语言或应用程序的一部分，而系统调用是内核提供给应用程序的接口，属于系统的一部分</li>
+<li>库函数在用户地址空间执行，系统调用是在内核地址空间执行，库函数运行时间属于用户时间，系统调用属于系统时间，库函数开销较小，系统调用开销较大</li>
+<li>系统调用依赖于平台，库函数并不依赖</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>函数库调用</th>
+<th>系统调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义差别</td>
+<td>在所有的ANSI C编译器版本中，C函数库是相同的</td>
+<td>各个操作系统的系统调用是不同的</td>
+</tr>
+<tr>
+<td>调用差别</td>
+<td>它调用函数库中的一段程序或函数</td>
+<td>调用系统内核的服务</td>
+</tr>
+<tr>
+<td>运行空间</td>
+<td>用户地址空间</td>
+<td>内核地址空间</td>
+</tr>
+<tr>
+<td>开销</td>
+<td>属于过程调用，开销小</td>
+<td>需要在用户空间和内核空间上下文切换，开销较大</td>
+</tr>
+<tr>
+<td>个数</td>
+<td>在C函数库libc中大约有300个函数</td>
+<td>在Linux中大约有100多个系统调用</td>
+</tr>
+<tr>
+<td>典型调用</td>
+<td>pringf，fread，malloc</td>
+<td>chdir，fork，write，brk</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>系统调用是为了方便使用操作系统的接口，而库函数则是为了人们编程的方便。</strong></p>
+<p><strong>库函数调用与系统无关，不同的系统，调用库函数，库函数会调用不同的底层函数实现，因此可移植性好。</strong></p>
+<h4 id="1-5-4-实例"><a href="#1-5-4-实例" class="headerlink" title="1.5.4 实例"></a>1.5.4 实例</h4><p>当应用程序调用printf()函数时，printf函数会调用C库中的printf，继而调用C库中的write，C库最后调用内核的write()。</p>
+<p>而另一些则不会使用系统调用，比如strlen, strcat, memcpy等。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img20/v2-7f5eb3c97342632b5975493cbdd45b9f_r.jpg" alt="img"></p>
+<p>printf函数执行过程中，程序运行状态切换如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户态–&gt;系统调用–&gt;内核态–&gt;返回用户态</span><br></pre></td></tr></table></figure>
+<p>printf函数、glibc库和系统调用在系统中关系图如下：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://kisugitakumi.oss-cn-chengdu.aliyuncs.com/img20/v2-a8315ef7d9a895bb4649fe3cd6f3e96a_r.jpg" alt="img"></p>
+<h2 id="2-标准IO"><a href="#2-标准IO" class="headerlink" title="2 标准IO"></a>2 标准IO</h2><p>该节对应<code>APUE</code>的第五章——标准IO库</p>
+<h3 id="2-1-简介"><a href="#2-1-简介" class="headerlink" title="2.1 简介"></a>2.1 简介</h3><p>IO分为标准IO（<code>stdio</code>）和系统调用IO（<code>sysio</code>）；</p>
+<p>系统调用IO根据操作系统的实现方式而定，对于程序员来说会造成很大困扰（例如打开文件，Linux的系统调用为<code>open</code>，而Windows的系统调用为<code>opendir</code>），于是又有了标准IO，提供了一套标准的IO实现的库函数（例如<code>pringtf</code>，<code>fopen</code>等），它实际上也是调用了系统IO进行操作，但是屏蔽了系统调用IO，方便程序员调用。</p>
+<p>常用的标准IO库函数如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>打开关闭文件</th>
+<th>输入输出流</th>
+<th>文件指针操作</th>
+<th>缓存相关</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fopen</code></td>
+<td><code>fgetc</code>,<code>fputc</code></td>
+<td><code>fseek</code></td>
+<td><code>fflush</code></td>
+</tr>
+<tr>
+<td><code>fclose</code></td>
+<td><code>fgets</code>,<code>fputs</code></td>
+<td><code>ftell</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>fread</code>,<code>fwrite</code></td>
+<td><code>rewind</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>printf</code>族,<code>scanf</code>族</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注意<code>FILE</code>类型贯穿始终；</p>
+<h3 id="2-2-fopen"><a href="#2-2-fopen" class="headerlink" title="2.2 fopen"></a>2.2 fopen</h3><p>C 库函数 <code>fopen</code> 使用给定的模式 <strong>mode</strong> 打开 <strong>filename</strong> 所指向的文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>filename</strong> — 字符串，表示要打开的文件名称。</li>
+<li><strong>mode</strong> — 字符串，表示文件的访问模式，该指针指向以下面字符开头的字符串：</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模式</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">“r”</td>
+<td style="text-align:left">打开一个用于读取的文件。该文件必须存在。</td>
+</tr>
+<tr>
+<td style="text-align:left">“w”</td>
+<td style="text-align:left">创建一个用于写入的空文件。如果文件名称与已存在的文件相同，则会删除已有文件的内容，文件被视为一个新的空文件。<strong>有则清空，无则创建</strong>。</td>
+</tr>
+<tr>
+<td style="text-align:left">“a”</td>
+<td style="text-align:left">追加到一个文件。写操作向<strong>文件末尾</strong>追加数据。如果文件不存在，则创建文件。</td>
+</tr>
+<tr>
+<td style="text-align:left">“r+”</td>
+<td style="text-align:left">打开一个用于更新的文件，可读取也可写入。该文件必须存在。</td>
+</tr>
+<tr>
+<td style="text-align:left">“w+”</td>
+<td style="text-align:left">创建一个用于读写的空文件。</td>
+</tr>
+<tr>
+<td style="text-align:left">“a+”</td>
+<td style="text-align:left">打开一个用于读取和追加的文件。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>只有模式<code>r</code>和<code>r+</code>要求文件必须存在，其他模式都是有则清空，无则创建；</p>
+<p><strong>mode</strong>也可以包含字母<code>b</code>，放在最后或者中间，表示二进制流。例如<code>“rb”</code>，<code>“r+b”</code>；</p>
+<ul>
+<li>该函数返回一个 FILE 指针。否则返回 NULL，且设置<strong>全局变量</strong> <code>errno</code> 来标识错误。该全局变量在头文件<code>errno.h</code>中声明：（只展示部分）</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EPERM 1 <span class="comment">/* Operation not permitted */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENOENT 2 <span class="comment">/* No such file or directory */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ESRCH 3 <span class="comment">/* No such process */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EINTR 4 <span class="comment">/* Interrupted system call */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EIO 5 <span class="comment">/* I/O error */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENXIO 6 <span class="comment">/* No such device or address */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> E2BIG 7 <span class="comment">/* Argument list too long */</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码示例</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    fp = fopen(<span class="string">&quot;tmp&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fp == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;fopen() failed! errno = %d.\n&quot;</span>, errno);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;OK!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译执行后打印结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fopen() failed! errno = 2.</span><br></pre></td></tr></table></figure>
+<p>可知<code>errno</code>为2，为<code>No such file or directory</code>；</p>
+<p>在C标准中定义了两个函数帮助打印输出errno的对应错误原因，一个是<code>strerror</code>，另一个是<code>perror</code>；</p>
+<hr>
+<p>perror包含在<code>stdio.h</code>中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数原型</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*功能：根据error打印对应的错误信息</span></span><br><span class="line"><span class="comment">*参数：s: 用户自定义信息字符串，一般是出错的函数名</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">perror</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>修改后的程序为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    fp = fopen(<span class="string">&quot;tmp&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fp == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="comment">// fprintf(stderr, &quot;fopen() failed! errno = %d.\n&quot;, errno);</span></span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;OK!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fopen(): No such file or directory</span><br></pre></td></tr></table></figure>
+<hr>
+<p><code>strerror</code>包含在<code>&lt;string.h&gt;</code>头文件中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数原型</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*功能：将某个错误代码转换成对应的错误信息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strerror</span><span class="params">(<span class="keyword">int</span> errnuum)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>修改后的程序为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;fopen:%s\n&quot;</span>, strerror(errno));</span><br></pre></td></tr></table></figure>
+<hr>
+<p>fopen函数解析：</p>
+<p>由函数原型可知，fopen函数返回的是一个FILE类型的指针，FILE是一个结构体，由<code>typedef</code>进行了重命名，而指针实际上是指向结构体的指针。</p>
+<p>问题：指针指向的内存空间是哪一块（或者说FILE结构体放在内存的哪一块）？是堆，是栈，还是静态区？</p>
+<ul>
+<li>栈</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单的fopen源码分析</span></span><br><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span> </span>&#123;</span><br><span class="line">    FILE tmp;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 给结构体成员赋值初始化</span></span><br><span class="line">    tmp.xxx = xxx;</span><br><span class="line">    tmp.yyy = yyy;</span><br><span class="line">    ...</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> &amp;tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析：<code>tmp</code>变量的存储类别是自动类型（块作用域，自动存储期），当程序退出这个块时，<strong>释放刚才为变量tmp匹配的内存</strong>，因此，指针指向的地址实际上没有tmp，是一个没有被分配的内存；</p>
+<ul>
+<li>静态区</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单的fopen源码分析</span></span><br><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> FILE tmp;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 给结构体成员赋值初始化</span></span><br><span class="line">    tmp.xxx = xxx;</span><br><span class="line">    tmp.yyy = yyy;</span><br><span class="line">    ...</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> &amp;tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加上<code>static</code>，将tmp保存在静态区（静态无链接），但是只能存在一个FILE实例（因为只有这一个内存区供指针指向）；例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fp1 = fopen(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">fp2 = fopen(<span class="string">&quot;b&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line"><span class="comment">// 此时fp1实际指向了b，第二次的结果会把第一次的结果覆盖掉</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>堆（正解）</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单的fopen源码分析</span></span><br><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span> </span>&#123;</span><br><span class="line">    FILE *tmp = <span class="literal">NULL</span>;</span><br><span class="line">    tmp = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(FILE));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 给结构体成员赋值初始化</span></span><br><span class="line">    tmp-&gt;xxx = xxx;</span><br><span class="line">    tmp-&gt;yyy = yyy;</span><br><span class="line">    ...</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时变量<code>tmp</code>具有动态存储期，从调用<code>malloc</code>分配内存到调用<code>free</code>释放内存为止，而<code>free</code>就在<code>fclose</code>函数中被调用。</p>
+<h3 id="2-3-fclose"><a href="#2-3-fclose" class="headerlink" title="2.3 fclose"></a>2.3 fclose</h3><p>C 库函数 <code>fclose</code> 关闭流 stream。刷新所有的缓冲区。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fclose</span><span class="params">(FILE *stream)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>stream</strong> — 这是指向 FILE 对象的指针，该 FILE 对象指定了要被关闭的流。</li>
+<li>如果流成功关闭，则该方法返回零。如果失败，则返回 EOF。</li>
+</ul>
+<blockquote>
+<p>代码示例</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    fp = fopen(<span class="string">&quot;tmp&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fp == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;OK!&quot;</span>);</span><br><span class="line">    fclose(fp); <span class="comment">// 释放内存</span></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-fgetc和fputc"><a href="#2-4-fgetc和fputc" class="headerlink" title="2.4 fgetc和fputc"></a>2.4 fgetc和fputc</h3><ul>
+<li><code>getchar</code>和<code>putchar</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getchar</span><span class="params">(<span class="keyword">void</span>)</span></span>; <span class="comment">// 从标准输入 stdin 获取一个字符（一个无符号字符）。这等同于 getc 带有 stdin 作为参数</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putchar</span><span class="params">(<span class="keyword">int</span> <span class="keyword">char</span>)</span></span>; <span class="comment">// 把参数 char 指定的字符（一个无符号字符）写入到标准输出 stdout 中。这等同于 putc 带有 stdout 作为参数</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>getc</code>和<code>putc</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getc</span><span class="params">(FILE *stream)</span></span>; <span class="comment">// 从指定的流 stream 获取下一个字符（一个无符号字符），并把位置标识符往前移动。 </span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putc</span><span class="params">(<span class="keyword">int</span> <span class="keyword">char</span>, FILE *stream)</span></span>; <span class="comment">// 把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>fgetc</code>和<code>fputc</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fgetc</span><span class="params">(FILE *stream)</span></span>; <span class="comment">// 从指定的流 stream 获取下一个字符（一个无符号字符），并把位置标识符往前移动。</span></span><br><span class="line"><span class="comment">// 该函数以无符号 char 强制转换为 int 的形式返回读取的字符，如果到达文件末尾或发生读错误，则返回 EOF。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span><span class="params">(<span class="keyword">int</span> <span class="keyword">char</span>, FILE *stream)</span></span>; <span class="comment">// 把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。</span></span><br><span class="line"><span class="comment">// 如果没有发生错误，则返回被写入的字符。如果发生错误，则返回 EOF，并设置错误标识符。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>getc</code>，<code>putc</code>和<code>fgetc</code>，<code>fputc</code>的区别</p>
+</blockquote>
+<p>两者的使用完全相同，只是实现不同。这里的<code>f</code>指的是<code>function</code>，而不是<code>file</code>。</p>
+<p><code>getc</code>，<code>putc</code>是通过<strong>宏定义</strong>实现，而<code>fgetc</code>，<code>fputc</code>是通过<strong>函数</strong>来实现。</p>
+<p>宏只占用编译时间，不占用调用时间，而函数相反，因此内核的实现通常使用宏来定义函数，减少调用时间。</p>
+<blockquote>
+<p>代码示例</p>
+</blockquote>
+<p>需求：拷贝文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mycpy dest src</span><br></pre></td></tr></table></figure>
+<p>实现代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 命令行传参</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    FILE *fps, *fpd;</span><br><span class="line">    <span class="keyword">int</span> ch; <span class="comment">// 存储读入的字符</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc &lt; <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Usage:%s &lt;src_file&gt; &lt;dest_file&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fps = fopen(argv[<span class="number">1</span>], <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fps == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fpd = fopen(argv[<span class="number">2</span>], <span class="string">&quot;w&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fpd == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        fclose(fps);</span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        ch = fgetc(fps);</span><br><span class="line">        <span class="keyword">if</span>(ch == EOF) &#123; <span class="comment">// 读到文件末尾结束循环</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        fputc(ch, fpd);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">// 释放内存，后开的先关</span></span><br><span class="line">    fclose(fpd);</span><br><span class="line">    fclose(fps);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mycpy /usr/<span class="built_in">local</span>/<span class="built_in">test</span> /temp/out</span><br></pre></td></tr></table></figure>
+<h3 id="2-5-fgets和fputs"><a href="#2-5-fgets和fputs" class="headerlink" title="2.5 fgets和fputs"></a>2.5 fgets和fputs</h3><ul>
+<li><code>gets</code>和<code>puts</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">gets</span><span class="params">(<span class="keyword">char</span> *str)</span></span>; <span class="comment">// 从标准输入 stdin 读取一行，并把它存储在 str 所指向的字符串中。当读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。</span></span><br><span class="line"><span class="comment">// 如果成功，该函数返回 str。如果发生错误或者到达文件末尾时还未读取任何字符，则返回 NULL。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">puts</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span></span>; <span class="comment">// 把一个字符串写入到标准输出 stdout，直到空字符，但不包括空字符。换行符会被追加到输出中。</span></span><br><span class="line"><span class="comment">// 如果成功，该函数返回一个非负值为字符串长度（包括末尾的 \0），如果发生错误则返回 EOF。</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>fgets</code>和<code>fputs</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从指定的流 stream 读取一行，并把它存储在 str 所指向的字符串内。当读取 (n-1) 个字符时，或者读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">fgets</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">int</span> n, FILE *stream)</span></span>; </span><br><span class="line"><span class="comment">// 如果成功，该函数返回相同的 str 参数。如果到达文件末尾或者没有读取到任何字符，str 的内容保持不变，并返回一个空指针。</span></span><br><span class="line"><span class="comment">// 如果发生错误，返回一个空指针。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  把字符串写入到指定的流 stream 中，但不包括空字符。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, FILE *stream)</span></span>;</span><br><span class="line"><span class="comment">// 该函数返回一个非负值，如果发生错误则返回 EOF。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>区别</p>
+</blockquote>
+<p> <code>fgets</code>比<code>gets</code>安全，使用<code>gets</code>编译时会警告。所以不要使用<code>gets</code>！</p>
+<p>原因：函数 gets 可以<strong>无限读取</strong>，不会判断上限，所以程序员应该确保 buffer 的空间足够大，以便在执行读操作时不发生溢出。也就是说，gets 函数并不检查缓冲区 buffer 的空间大小，事实上它也无法检查缓冲区的空间。</p>
+<p>如果函数的调用者提供了一个指向堆栈的指针，并且 gets 函数读入的字符数量超过了缓冲区的空间（即发生溢出），gets 函数会将多出来的字符继续写入堆栈中，这样就覆盖了堆栈中原来的内容，破坏一个或多个不相关变量的值。</p>
+<hr>
+<p><code>fgets</code>读取结束的条件，满足其一即可：</p>
+<ul>
+<li>读到<code>size-1</code>个字符时停止</li>
+<li>读到换行符<code>&#39;\n&#39;</code>时停止</li>
+<li>读到文件末尾<code>EOF</code></li>
+</ul>
+<blockquote>
+<p>简单的实例</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIZE 5</span></span><br><span class="line"><span class="keyword">char</span> buf[SIZE];</span><br><span class="line">fgets(buf, SIZE, stream);</span><br><span class="line"></span><br><span class="line">如果stream = <span class="string">&quot;abcde&quot;</span></span><br><span class="line">则buf = <span class="string">&quot;abcd\0&quot;</span>(读到size<span class="number">-1</span>)，文件指针指向e</span><br><span class="line"></span><br><span class="line">如果stream = <span class="string">&quot;ab&quot;</span></span><br><span class="line">则buf = <span class="string">&quot;ab\n\0&quot;</span>(读到换行符)，文件指针指向EOF</span><br><span class="line"></span><br><span class="line">极端的情况：</span><br><span class="line">如果stream = <span class="string">&quot;abcd&quot;</span></span><br><span class="line">则需要fgets读取两次才能读完</span><br><span class="line">第一次读取的为<span class="string">&quot;abcd\0&quot;</span>(读到SIZE<span class="number">-1</span>)，指针指向<span class="string">&#x27;\n&#x27;</span></span><br><span class="line">第二次读取的为<span class="string">&quot;\n\0&quot;</span>(读到换行符)，指针指向EOF</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码示例</p>
+</blockquote>
+<p>用<code>fgets</code>和<code>fputs</code>代替<code>fgtec</code>和<code>fputc</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    FILE *fps, *fpd;</span><br><span class="line">    <span class="keyword">char</span> buf[SIZE];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc &lt; <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Usage:%s &lt;src_file&gt; &lt;dest_file&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fps = fopen(argv[<span class="number">1</span>], <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fps == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fpd = fopen(argv[<span class="number">2</span>], <span class="string">&quot;w&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fpd == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        fclose(fps);</span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(fgets(buf, SIZE, fps) != <span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">fputs</span>(buf, fpd);</span><br><span class="line"></span><br><span class="line">    fclose(fpd);</span><br><span class="line">    fclose(fps);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-6-fread和fwrite"><a href="#2-6-fread和fwrite" class="headerlink" title="2.6 fread和fwrite"></a>2.6 fread和fwrite</h3><p><code>fread</code>从给定流 <strong>stream</strong> 读取数据到 <strong>ptr</strong> 所指向的数组中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">fread</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, FILE *stream)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>ptr</strong> — 这是指向带有最小尺寸 <code>size*nmemb</code> 字节的内存块的指针。</li>
+<li><strong>size</strong> — 这是要读取的每个元素的大小，以字节为单位。</li>
+<li><strong>nmemb</strong> — 这是元素的个数，每个元素的大小为 size 字节。</li>
+<li><strong>stream</strong> — 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输入流。</li>
+</ul>
+<ul>
+<li>成功读取的<strong>元素总数</strong>会以 size_t 对象返回，size_t 对象是一个整型数据类型。如果总数与 nmemb 参数不同，则可能发生了一个错误或者到达了文件末尾。</li>
+</ul>
+<p><code>fwrite</code>把 <strong>ptr</strong> 所指向的数组中的数据写入到给定流 <strong>stream</strong> 中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">fwrite</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, FILE *stream)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>ptr</strong> — 这是指向要被写入的元素数组的指针。</li>
+<li><strong>size</strong> — 这是要被写入的每个元素的大小，以字节为单位。</li>
+<li><strong>nmemb</strong> — 这是元素的个数，每个元素的大小为 size 字节。</li>
+<li><strong>stream</strong> — 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输出流。</li>
+<li>如果成功，该函数返回一个 size_t 对象，表示元素的总数，该对象是一个整型数据类型。如果该数字与 nmemb 参数不同，则会显示一个错误。</li>
+</ul>
+<blockquote>
+<p>简单的实例</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">fread(buf, size, nmemb, fp);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 情况1：数据量足够</span></span><br><span class="line"><span class="comment">// 情况2：文件只有5个字节</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 读10个对象，每个对象1个字节</span></span><br><span class="line">fread(buf, <span class="number">1</span>, <span class="number">10</span>, fp);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 情况1：</span></span><br><span class="line"><span class="comment">// 第一次读：返回10（读到10个对象），读到10个字节</span></span><br><span class="line"><span class="comment">// 情况2：</span></span><br><span class="line"><span class="comment">// 第一次读：返回5（读到5个对象），读到5个字节</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//--------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 读1个对象，每个对象10个字节</span></span><br><span class="line">fread(buf, <span class="number">10</span>, <span class="number">1</span>, fp);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 情况1：</span></span><br><span class="line"><span class="comment">// 第一次读：返回1（读到1个对象），也读到10个字节</span></span><br><span class="line"><span class="comment">// 情况2：</span></span><br><span class="line"><span class="comment">// 第一次读：返回0（读不到1个对象，因为1个对象要10字节，而文件只有5个字节）</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码示例</p>
+</blockquote>
+<p>用<code>fread</code>和<code>fwrite</code>代替<code>fgtec</code>和<code>fputc</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    FILE *fps, *fpd;</span><br><span class="line">    <span class="keyword">char</span> buf[SIZE];</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc &lt; <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Usage:%s &lt;src_file&gt; &lt;dest_file&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fps = fopen(argv[<span class="number">1</span>], <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fps == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fpd = fopen(argv[<span class="number">2</span>], <span class="string">&quot;w&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fpd == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        fclose(fps);</span><br><span class="line">        perror(<span class="string">&quot;fopen()&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 如果成功读到n(n&gt;0)个对象，则返回n</span></span><br><span class="line">    <span class="comment">// 将这n个对象写入流中</span></span><br><span class="line">    <span class="keyword">while</span>((n = fread(buf, <span class="number">1</span>, SIZE, fps)) &gt; <span class="number">0</span>) </span><br><span class="line">            fwrite(buf, <span class="number">1</span>, n, fpd);</span><br><span class="line"></span><br><span class="line">    fclose(fpd);</span><br><span class="line">    fclose(fps);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-7-printf和scanf"><a href="#2-7-printf和scanf" class="headerlink" title="2.7 printf和scanf"></a>2.7 printf和scanf</h3><blockquote>
+<p><code>printf</code>一族函数</p>
+</blockquote>
+<ul>
+<li><code>printf</code>：发送格式化输出到标准输出 stdout。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>fprintf</code>：发送格式化输出到流 stream 中。可以实现格式化输出的<strong>重定向</strong>，例如重定向至文件中。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fprintf</span><span class="params">(FILE *stream, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>sprintf</code>：发送格式化输出到 <strong>str</strong> 所指向的字符串。它能够将多种数据类型（整型、字符型）的数据综合为字符串类型。有溢出风险，可以使用<code>snprintf</code>来防止。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sprintf</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>atoi</code>：把参数 <strong>str</strong> 所指向的字符串转换为一个整数（类型为 int 型）。包含在<code>stdlib.h</code>中。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">atoi</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span></span></span><br></pre></td></tr></table></figure>
+<p>代码示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[] = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, atoi(str)); <span class="comment">// 123456</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[] = <span class="string">&quot;123a456&quot;</span>;</span><br><span class="line">	<span class="comment">// 遇到字符就停止</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, atoi(str)); <span class="comment">// 123</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">int</span> year = <span class="number">2022</span>, month = <span class="number">11</span>, day = <span class="number">28</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 将格式化输出重定向为字符串</span></span><br><span class="line">    <span class="built_in">sprintf</span>(buf, <span class="string">&quot;%d-%d-%d&quot;</span>, year, month, day);</span><br><span class="line">    <span class="built_in">puts</span>(buf);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>scanf</code>一族函数</p>
+</blockquote>
+<ul>
+<li><code>scanf</code></li>
+<li><code>fscanf</code></li>
+<li><code>sscanf</code></li>
+</ul>
+<h3 id="2-8-fseek和ftell"><a href="#2-8-fseek和ftell" class="headerlink" title="2.8 fseek和ftell"></a>2.8 fseek和ftell</h3><ul>
+<li><code>fseek</code>：</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://kisugitakumi.com">Kisugi Takumi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://kisugitakumi.com">https://kisugitakumi.com</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归Kisugi Takumi所有，如有转载，请註明来自原作者</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/">C语言学习</a><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a></div><div class="post_share"><div class="social-share" data-image="/img/linux.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/11/06/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8/"><img class="next-cover" src="/img/51danpianji.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">51单片机入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/11/05/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="C语言学习笔记"><img class="cover" src="/img/C.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-05</div><div class="title">C语言学习笔记</div></div></a></div><div><a href="/2022/09/29/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Linux学习笔记"><img class="cover" src="/linear-gradient(20deg,%20#0062be,%20#925696,%20#cc426e,%20#fb0347)" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-29</div><div class="title">Linux学习笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">Linux系统编程学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-text">1 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%8E%AF%E5%A2%83"><span class="toc-text">1.1 环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-GCC"><span class="toc-text">1.2 GCC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-make"><span class="toc-text">1.3 make</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-makefile"><span class="toc-text">1.4 makefile</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-%E4%BD%BF%E7%94%A8gcc%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-text">1.4.1 使用gcc的例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-text">1.4.2 语法规则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-POSIX"><span class="toc-text">1.5 POSIX</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1.5.1 简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-2-%E5%8E%86%E5%8F%B2"><span class="toc-text">1.5.2 历史</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-3-%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7"><span class="toc-text">1.5.3 可移植性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%91%A0-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-text">① 系统调用和库函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%91%A1-%E5%8C%BA%E5%88%AB"><span class="toc-text">② 区别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-4-%E5%AE%9E%E4%BE%8B"><span class="toc-text">1.5.4 实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%87%E5%87%86IO"><span class="toc-text">2 标准IO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">2.1 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-fopen"><span class="toc-text">2.2 fopen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-fclose"><span class="toc-text">2.3 fclose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-fgetc%E5%92%8Cfputc"><span class="toc-text">2.4 fgetc和fputc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-fgets%E5%92%8Cfputs"><span class="toc-text">2.5 fgets和fputs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-fread%E5%92%8Cfwrite"><span class="toc-text">2.6 fread和fwrite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-printf%E5%92%8Cscanf"><span class="toc-text">2.7 printf和scanf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-fseek%E5%92%8Cftell"><span class="toc-text">2.8 fseek和ftell</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Kisugi Takumi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的个人博客!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
